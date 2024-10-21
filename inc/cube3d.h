@@ -25,7 +25,17 @@
 # include <math.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include <sys/time.h>
 # include "../.minilibx-linux/mlx.h"
 
+# define RED "\033[1;31m"
+# define GREY "\033[0;90m"
+# define CYAN "\033[1;96m"
+# define GREEN "\033[1;32m"
+# define RESET "\033[0m"
+# define YELLOW "\033[0;33m"
+# define PURPLE "\033[0;35m"
 
 #endif
