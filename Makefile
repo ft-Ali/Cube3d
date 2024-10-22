@@ -14,8 +14,8 @@ MLX_LIB		=	$(MLX_PATH)/$(MLX_FILE)
 MLX_EX      =   $(MLX_LIB) $(MLX_FLAGS)
 
 
-CUBE_SRC	=	srcs/*.c
-
+CUBE_SRC	=	srcs/main.c srcs/checker/*.c srcs/error/*.c
+ 
 CUBE_OBJ	=	$(CUBE_SRC:.c=.o)
 
 
