@@ -88,7 +88,7 @@ typedef struct s_map
 	char *east_path;  // Chemin vers la texture du mur est
 	char *west_path;  // Chemin vers la texture du mur ouest
 	char *f_color;    // Couleur du sol (au format "R,G,B")
-	char *c_color;    // Couleur du plafond (au format "R,G,B")
+	char  *c_color;    // Couleur du plafond (au format "R,G,B")
 } t_map;
 
 typedef struct s_texture

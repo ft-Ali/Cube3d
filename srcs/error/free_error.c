@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:57:31 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/22 14:19:17 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/10/23 11:35:00 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	free_all(t_game *game)
 		free(game->map.east_path);
 	if (game->map.west_path)
 		free(game->map.west_path);
-	if (game->map.f_color)
-		free(game->map.f_color);
-	if (game->map.c_color)
-		free(game->map.c_color);
+	// if (game->map.f_color)
+	// 	free(game->map.f_color);
+	// if (game->map.c_color)
+	// 	free(game->map.c_color);
 	// MLX
 	if (game->img.mlx_img)
 		mlx_destroy_image(game->mlx_ptr, game->img.mlx_img);
