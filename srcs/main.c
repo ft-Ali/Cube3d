@@ -16,6 +16,32 @@
 #include "../inc/cube3d.h"
 
 
+void print_data(t_game *game)
+{
+    int i = 0;
+
+    // Afficher les textures
+    ft_printf(BOLD "🖼️ Textures:\n" RESET);
+    ft_printf(GREEN "  North: %s\n" RESET, game->map.north_path);
+    ft_printf(GREEN "  South: %s\n" RESET, game->map.south_path);
+    ft_printf(GREEN "  West: %s\n" RESET, game->map.west_path);
+    ft_printf(GREEN "  East: %s\n" RESET, game->map.east_path);
+
+    // Afficher les couleurs
+    ft_printf(BOLD "🎨 Colors:\n" RESET);
+    ft_printf(CYAN "  Floor: %d\n" RESET, game->map.f_color);
+    ft_printf(CYAN "  Ceiling: %d\n" RESET, game->map.c_color);
+
+    // Afficher la carte
+    ft_printf(BOLD "🗺️ Map:\n" RESET);
+    while (game->map.grid[i])
+    {
+        ft_printf(YELLOW "  %s\n" RESET, game->map.grid[i]);
+        i++;
+    }
+    ft_printf(MAGENTA "  Height: %d\n" RESET, game->map.height);
+}
+
 void	init_struct(t_game *game)
 {
 	// Utiliser memset pour mettre tous les champs à zéro

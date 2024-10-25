@@ -44,6 +44,7 @@
 # define BLACK "\e[30m"
 # define RED "\e[31m"
 # define GREEN "\e[32m"
+# define MAGENTA "\033[35m"
 # define YELLOW "\e[33m"
 # define BLUE "\e[34m"
 # define PURPLE "\e[35m"
@@ -155,12 +156,16 @@ typedef struct s_game
 
 void check_file_extension(char *path);
 int	check_and_open_file(t_game *game, char *file);
+void	parse_textures(t_game *game, int map_fd);
 void parse_init(t_game *game, char *path);
 
 /************************** ERROR HANDLING ******************************/
 
 
 void handle_error(t_game *game, char *msg);
+
+/************************** UTILS ******************************/
+void print_data(t_game *game);
 
 
 #endif

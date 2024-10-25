@@ -1,0 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_texture.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/25 11:53:15 by alsiavos          #+#    #+#             */
+/*   Updated: 2024/10/25 16:23:28 by alsiavos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/cube3d.h"
+
+void	check_textures(t_game *game)
+{
+	const char	*ext = ".xpm";
+	size_t		ext_len;
+
+	ext_len = ft_strlen(ext);
+	if (!game->map.north_path || !game->map.south_path || !game->map.west_path
+		|| !game->map.east_path)
+		handle_error(game, "Error: Missing textures");
+	if (ft_strlen(game->map.north_path) < ext_len
+		|| ft_strncmp(game->map.north_path + ft_strlen(game->map.north_path)
+			- ext_len, ext, ext_len) != 0)
+		handle_error(game, ERR_FILE_NOT_XPM);
+	if (ft_strlen(game->map.south_path) < ext_len
+		|| ft_strncmp(game->map.south_path + ft_strlen(game->map.south_path)
+			- ext_len, ext, ext_len) != 0)
+		handle_error(game, ERR_FILE_NOT_XPM);
+	if (ft_strlen(game->map.west_path) < ext_len
+		|| ft_strncmp(game->map.west_path + ft_strlen(game->map.west_path)
+			- ext_len, ext, ext_len) != 0)
+		handle_error(game, ERR_FILE_NOT_XPM);
+	if (ft_strlen(game->map.east_path) < ext_len
+		|| ft_strncmp(game->map.east_path + ft_strlen(game->map.east_path)
+			- ext_len, ext, ext_len) != 0)
+		handle_error(game, ERR_FILE_NOT_XPM);
+}
+
+/**
+ * parse_textures - extrait les chemins des textures (NO, SO, WE, EA) du fichier
+ */
+void	parse_textures(t_game *game, int map_fd)
+{
+	char *line;
+	char *trimmed_line;
+
+	line = get_next_line(map_fd);
+	while (line != NULL)
+	{
+		if (ft_strncmp(line, "NO", 2) == 0)
+		{
+			trimmed_line = ft_strtrim(&line[2], " \n");
+			game->map.north_path = ft_strdup(trimmed_line);
+			free(trimmed_line);
+		}
+		else if (ft_strncmp(line, "SO", 2) == 0)
+		{
+			trimmed_line = ft_strtrim(&line[2], " \n");
+			game->map.south_path = ft_strdup(trimmed_line);
+			free(trimmed_line);
+		}
+		else if (ft_strncmp(line, "WE", 2) == 0)
+		{
+			trimmed_line = ft_strtrim(&line[2], " \n");
+			game->map.west_path = ft_strdup(trimmed_line);
+			free(trimmed_line);
+		}
+		else if (ft_strncmp(line, "EA", 2) == 0)
+		{
+			trimmed_line = ft_strtrim(&line[2], " \n");
+			game->map.east_path = ft_strdup(trimmed_line);
+			free(trimmed_line);
+		}
+		// Si on rencontre une ligne de carte, on stoppe la lecture des textures
+		else if (ft_isdigit(line[0]) || line[0] == ' ')
+		{
+			free(line);
+			// free(trimmed_line);
+			break ;
+		}
+		free(line);
+		line = get_next_line(map_fd);
+	}
+	check_textures(game);
+}
