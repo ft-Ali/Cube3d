@@ -29,11 +29,13 @@ void print_data(t_game *game)
 
     // Afficher les couleurs
     ft_printf(BOLD "🎨 Colors:\n" RESET);
-    ft_printf(CYAN "  Floor: %d\n" RESET, game->map.f_color);
-    ft_printf(CYAN "  Ceiling: %d\n" RESET, game->map.c_color);
+    ft_printf(CYAN "  Floor: %s\n" RESET, game->map.f_color);
+    ft_printf(CYAN "  Ceiling: %s\n" RESET, game->map.c_color);
 
     // Afficher la carte
     ft_printf(BOLD "🗺️ Map:\n" RESET);
+	if(game->map.grid == NULL)
+	    return ;
     while (game->map.grid[i])
     {
         ft_printf(YELLOW "  %s\n" RESET, game->map.grid[i]);

@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:17:17 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/25 16:20:01 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:22:22 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,28 +68,32 @@ void	parse_map(t_game *game, int map_fd)
 	char	*line_tmp;
 	
 	line_tmp = get_next_line(map_fd);
+	printf("line_map: %s\n", line_tmp);
 	while (line_tmp)
 	{
-		line_map = ft_freejoin(line_map, line_tmp, ft_strlen(line_map),
-				ft_strlen(line_tmp));
+		line_map = ft_strjoin(line_map, line_tmp);
 		free(line_tmp);
 		line_tmp = get_next_line(map_fd);
 	}
 	game->map.grid = ft_split(line_map, '\n');
 	game->map.height = check_map_height(game->map.grid);
+	free(line_tmp);
 	free(line_map);
 }
 
 void	parse_init(t_game *game, char *path)
 {
 	int map_fd;
-
+	
 	
 	check_file_extension(path);
 	map_fd = check_and_open_file(game, path);
 	parse_textures(game, map_fd);
-	parse_map(game, map_fd);
-	// parse_colors(game, map_fd);
+	
+	parse_color(game, game->map.f_color, 'F');
+	parse_color(game, game->map.c_color, 'C');
+	// printf("MAP color: %s\n", game->map.f_color);
+	// check_map_valid(game, map_fd);
 	print_data(game);
 	
 	close(map_fd);

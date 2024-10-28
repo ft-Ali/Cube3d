@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:23:48 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/02/14 15:50:24 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:03:21 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_atoi(const char *nptr)
 		sign = -sign;
 		i++;
 	}
-	while (ft_isdigit(nptr[i]))
+	while (ft_isdigit(nptr[i])) 
 	{
 		nb = nb * 10 + nptr[i] - '0';
 		i++;

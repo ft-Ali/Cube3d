@@ -53,7 +53,7 @@
 
 // ERROR MESSAGES
 # define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
-
+# define SIZE_TAB 3
 # define ERR_FILE_NOT_CUB "Not a .cub file"
 # define ERR_FILE_NOT_XPM "Not an .xpm file"
 # define ERR_FILE_IS_DIR "Is a directory"
@@ -90,6 +90,8 @@ typedef struct s_map
 	char *west_path;  // Chemin vers la texture du mur ouest
 	char *f_color;    // Couleur du sol (au format "R,G,B")
 	char  *c_color;    // Couleur du plafond (au format "R,G,B")
+	int		f_tab[SIZE_TAB];
+	int		c_tab[SIZE_TAB];
 } t_map;
 
 typedef struct s_texture
@@ -158,9 +160,9 @@ void check_file_extension(char *path);
 int	check_and_open_file(t_game *game, char *file);
 void	parse_textures(t_game *game, int map_fd);
 void parse_init(t_game *game, char *path);
-
+void	parse_color(t_game *game, char *rgb, char who);
+void	parse_map(t_game *game, int map_fd);
 /************************** ERROR HANDLING ******************************/
-
 
 void handle_error(t_game *game, char *msg);
 
