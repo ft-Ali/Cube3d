@@ -32,6 +32,7 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 # define RESET "\e[0m"
 # define DEBUG 0
@@ -50,6 +51,14 @@
 # define PURPLE "\e[35m"
 # define CYAN "\e[36m"
 # define WHITE "\e[37m"
+
+# define WALL 1
+# define EMPTY 0
+# define PLAYER_N 'N'
+# define PLAYER_S 'S'
+# define PLAYER_E 'E'
+# define PLAYER_W 'W'
+
 
 // ERROR MESSAGES
 # define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
@@ -168,6 +177,9 @@ void parse_color_value(char *line, char **color, const char *identifier);
 void parse_texture_path(char *line, char **texture_path, const char *identifier);
 int	check_map_height(char **map);
 void	check_textures(t_game *game);
+void check_enclosure(t_game *game);
+void check_map_valid(t_game *game);
+int	map_width(t_game *game);
 /************************** ERROR HANDLING ******************************/
 
 void handle_error(t_game *game, char *msg);

@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:17:17 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/29 11:24:35 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:07:54 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	check_file_extension(char *path)
 	}
 }
 
-
 /**
  * check_map_height - renvoie la hauteur de la carte
  */
@@ -59,42 +58,38 @@ int	check_map_height(char **map)
 	return (k);
 }
 
-/**
- * parse_map - extrait la carte à partir du fichier
- */
-void	parse_map(t_game *game, int map_fd)
+int	map_width(t_game *game)
 {
-	char	*line_map;
-	char	*line_tmp;
-	
-	line_tmp = get_next_line(map_fd);
-	printf("line_map: %s\n", line_tmp);
-	while (line_tmp)
+	int	i;
+	int	max_width;
+	int	current_length;
+
+	i = 0;
+	max_width = 0;
+	while (game->map.grid[i])
 	{
-		line_map = ft_strjoin(line_map, line_tmp);
-		free(line_tmp);
-		line_tmp = get_next_line(map_fd);
+		current_length = ft_strlen(game->map.grid[i]);
+		if (current_length > max_width)
+			max_width = current_length;
+		i++;
 	}
-	game->map.grid = ft_split(line_map, '\n');
-	game->map.height = check_map_height(game->map.grid);
-	free(line_tmp);
-	free(line_map);
+	game->map.width = max_width;
+	return (max_width);
 }
 
 void	parse_init(t_game *game, char *path)
 {
 	int map_fd;
-	
-	
+
 	check_file_extension(path);
 	map_fd = check_and_open_file(game, path);
 	parse_map_config(game, map_fd);
-	
+
 	// printf("MAP color: %s\n", game->map.f_color);
 	parse_color(game, game->map.f_color, 'F');
 	parse_color(game, game->map.c_color, 'C');
-	// check_map_valid(game, map_fd);
+	check_map_valid(game);
 	print_data(game);
-	
+
 	close(map_fd);
 }

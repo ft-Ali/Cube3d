@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:53:15 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/29 11:34:02 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:12:11 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	parse_map_config(t_game *game, int map_fd)
 	game->map.grid = ft_split(tmp_map, '\n');
 	free(tmp_map);
 	game->map.height = check_map_height(game->map.grid);
+	game->map.width = map_width(game);
+	// game->map.grid[game->map.height][game->map.width] = '\0';
 	check_textures(game);
 }
 
