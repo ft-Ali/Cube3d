@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:17:17 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/28 15:22:22 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:24:35 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,11 @@ void	parse_init(t_game *game, char *path)
 	
 	check_file_extension(path);
 	map_fd = check_and_open_file(game, path);
-	parse_textures(game, map_fd);
+	parse_map_config(game, map_fd);
 	
+	// printf("MAP color: %s\n", game->map.f_color);
 	parse_color(game, game->map.f_color, 'F');
 	parse_color(game, game->map.c_color, 'C');
-	// printf("MAP color: %s\n", game->map.f_color);
 	// check_map_valid(game, map_fd);
 	print_data(game);
 	

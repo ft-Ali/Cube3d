@@ -68,6 +68,7 @@
 # define ERR_TEX_INVALID "Invalid texture(s)"
 # define ERR_COLOR_MISSING "Missing color(s)"
 # define ERR_MAP_MISSING "Missing map"
+# define ERR_EMPTY "Missing data"
 # define ERR_MAP_TOO_SMALL "Map is not at least 3 lines high"
 # define ERR_MAP_NO_WALLS "Map is not surrounded by walls"
 # define ERR_MAP_LAST "Map is not the last element in file"
@@ -158,10 +159,15 @@ typedef struct s_game
 
 void check_file_extension(char *path);
 int	check_and_open_file(t_game *game, char *file);
-void	parse_textures(t_game *game, int map_fd);
+void parse_map_config(t_game *game, int map_fd);
 void parse_init(t_game *game, char *path);
 void	parse_color(t_game *game, char *rgb, char who);
-void	parse_map(t_game *game, int map_fd);
+void process_line(char *line, t_game *game, char **tmp_map);
+void append_map_line(char **tmp_map, char *line);
+void parse_color_value(char *line, char **color, const char *identifier);
+void parse_texture_path(char *line, char **texture_path, const char *identifier);
+int	check_map_height(char **map);
+void	check_textures(t_game *game);
 /************************** ERROR HANDLING ******************************/
 
 void handle_error(t_game *game, char *msg);

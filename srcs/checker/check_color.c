@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:03:09 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/28 15:04:31 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:50:39 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,32 @@ static int	check_value(char *str)
 	if (ft_atol(str) > 255 || digit_count == 0)
 		return (1);
 	return (0);
+}
+void	check_textures(t_game *game)
+{
+	const char	*ext = ".xpm";
+	size_t		ext_len;
+
+	ext_len = ft_strlen(ext);
+	if (!game->map.north_path || !game->map.south_path || !game->map.west_path
+		|| !game->map.east_path)
+		handle_error(game, "Error: Missing textures");
+	if (ft_strlen(game->map.north_path) < ext_len
+		|| ft_strncmp(game->map.north_path + ft_strlen(game->map.north_path)
+			- ext_len, ext, ext_len) != 0)
+		handle_error(game, ERR_FILE_NOT_XPM);
+	if (ft_strlen(game->map.south_path) < ext_len
+		|| ft_strncmp(game->map.south_path + ft_strlen(game->map.south_path)
+			- ext_len, ext, ext_len) != 0)
+		handle_error(game, ERR_FILE_NOT_XPM);
+	if (ft_strlen(game->map.west_path) < ext_len
+		|| ft_strncmp(game->map.west_path + ft_strlen(game->map.west_path)
+			- ext_len, ext, ext_len) != 0)
+		handle_error(game, ERR_FILE_NOT_XPM);
+	if (ft_strlen(game->map.east_path) < ext_len
+		|| ft_strncmp(game->map.east_path + ft_strlen(game->map.east_path)
+			- ext_len, ext, ext_len) != 0)
+		handle_error(game, ERR_FILE_NOT_XPM);
 }
 
 void	parse_color(t_game *game, char *rgb, char who)

@@ -99,4 +99,5 @@ int	main(int c, char **v)
 	}
 	init_struct(&game);
 	parse_init(&game, v[1]);
+	handle_error(&game, "free");
 }
