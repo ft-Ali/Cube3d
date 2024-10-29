@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:01:56 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/29 14:36:35 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:38:51 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ void	check_enclosure(t_game *game)
 		}
 		t++;
 	}
-	size_t s = 1;
-	while (s < ft_strlen(game->map.grid[game->map.height - 1]))
+	i = 1;
+	while (i < game->map.height - 1)
 	{
-		if (game->map.grid[s][0] != '1')
+		if (game->map.grid[i][0] != '1')
 		{
-			printf("Erreur a la bordure gauche a la ligne %zu: %s\n", s, game->map.grid[s]);
+			printf("Erreur a la bordure gauche a la ligne %d: %s\n", i, game->map.grid[i]);
 			handle_error(game, "Bord gauche non ferme");
 		}
 		printf("char = %c\n", game->map.grid[i][game->map.width - 1]);
-		if (game->map.grid[s][game->map.width - 1] != '1')
+		if (game->map.grid[i][game->map.width - 1] != '1')
 		{
-			printf("Erreur a la bordure droite a la ligne %zu: %s\n", s,	game->map.grid[s]);
+			printf("Erreur a la bordure droite a la ligne %d: %s\n", i,game->map.grid[i]);
 			handle_error(game, "Bord droit non ferme");
 		}
 		i++;
