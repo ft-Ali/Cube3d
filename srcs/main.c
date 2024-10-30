@@ -99,5 +99,11 @@ int	main(int c, char **v)
 	}
 	init_struct(&game);
 	parse_init(&game, v[1]);
+	// init_mlx(&game);
+	// raycasting(&game);
+	// mlx_hook(game.win_ptr, 2, 1L << 0, /*afaire*/, &game);
+	// mlx_hook(game.win_ptr, 3, 1L << 1, /*afaire*/, &game);
+	// mlx_hook(game.win_ptr, 17, 0, /*afaire*/ , &game);
+	// mlx_loop(game.mlx_ptr);
 	handle_error(&game, "fin de programme main");
 }
