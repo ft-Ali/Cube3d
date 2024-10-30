@@ -99,6 +99,7 @@ int	main(int c, char **v)
 	}
 	init_struct(&game);
 	parse_init(&game, v[1]);
+	// texture_init(&game);
 	// init_mlx(&game);
 	// raycasting(&game);
 	// mlx_hook(game.win_ptr, 2, 1L << 0, /*afaire*/, &game);
