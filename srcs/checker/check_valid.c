@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:01:56 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/30 12:28:49 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:09:19 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void	check_enclosure_side(t_game *game)
 					game->map.grid[i][j - 1] == ' ' || // Case de gauche
 					game->map.grid[i][j + 1] == ' ')   // Case de droite
 				{
-					handle_error(game, ERR_MAP_NO_WALLS);
+					 map_replace(game);
 				}
 			}
 			j++;

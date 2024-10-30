@@ -181,6 +181,7 @@ void	check_enclosure_border(t_game *game);
 void	check_enclosure_side(t_game *game);
 void check_map_valid(t_game *game);
 int	map_width(t_game *game);
+void	map_replace(t_game *game);
 /************************** ERROR HANDLING ******************************/
 
 void handle_error(t_game *game, char *msg);
