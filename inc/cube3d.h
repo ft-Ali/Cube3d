@@ -177,7 +177,8 @@ void parse_color_value(char *line, char **color, const char *identifier);
 void parse_texture_path(char *line, char **texture_path, const char *identifier);
 int	check_map_height(char **map);
 void	check_textures(t_game *game);
-void check_enclosure(t_game *game);
+void	check_enclosure_border(t_game *game);
+void	check_enclosure_side(t_game *game);
 void check_map_valid(t_game *game);
 int	map_width(t_game *game);
 /************************** ERROR HANDLING ******************************/

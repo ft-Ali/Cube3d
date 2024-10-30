@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:01:56 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/29 14:38:51 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:28:49 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,52 +17,151 @@ static bool	is_space(char c)
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
 		|| c == '\r');
 }
+int isstartorground(char c)
+{
+    return (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
 
-void	check_enclosure(t_game *game)
+
+int	ft_sstrlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+void	check_char(t_game *game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	j = 0;
-	printf("game->map.width = %d\n", game->map.width);
-	while (j < game->map.width)
+	while (game->map.grid[i])
 	{
-		if (game->map.grid[0][j] != '1')
+		j = 0;
+		while (game->map.grid[i][j])
 		{
-			printf("Erreur à la bordure supérieure: %s\n", game->map.grid[0]);
-			handle_error(game, "Bord supérieur non fermé");
-		}
-		j++;
-	}
-	size_t t = 0;
-	while (t < ft_strlen(game->map.grid[game->map.height - 1]))
-	{
-		if (game->map.grid[game->map.height - 1][t] != '1')
-		{
-			 printf("Char a la position [hauteur - 1][%zu]: '%c'\n", t, game->map.grid[game->map.height - 1][t]);
-			printf("Erreur a la bordure inferieure: %s\n", game->map.grid[game->map.height - 1]);
-			handle_error(game, "Bord inferieur non ferme");
-		}
-		t++;
-	}
-	i = 1;
-	while (i < game->map.height - 1)
-	{
-		if (game->map.grid[i][0] != '1')
-		{
-			printf("Erreur a la bordure gauche a la ligne %d: %s\n", i, game->map.grid[i]);
-			handle_error(game, "Bord gauche non ferme");
-		}
-		printf("char = %c\n", game->map.grid[i][game->map.width - 1]);
-		if (game->map.grid[i][game->map.width - 1] != '1')
-		{
-			printf("Erreur a la bordure droite a la ligne %d: %s\n", i,game->map.grid[i]);
-			handle_error(game, "Bord droit non ferme");
+			if (game->map.grid[i][j] != '1' && game->map.grid[i][j] != '0'
+				&& game->map.grid[i][j] != ' ' && game->map.grid[i][j] != 'N'
+				&& game->map.grid[i][j] != 'S' && game->map.grid[i][j] != 'E'
+				&& game->map.grid[i][j] != 'W')
+			{
+				printf("Error: %c\n", game->map.grid[i][j]);
+				handle_error(game, ERR_INV_LETTER);
+			}
+			j++;
 		}
 		i++;
 	}
 }
+
+void map_height_valid(t_game *game)
+{
+    int i = 0;
+    int j = 0;
+    while (game->map.grid[i])
+    {
+        j = 0;
+        while (game->map.grid[i][j])
+        {
+            j++;
+        }
+        if (j > game->map.width)
+            game->map.width = j;
+        i++;
+    }
+    game->map.height = i;
+    if (game->map.height < 3 || game->map.width < 3)
+        handle_error(game, ERR_MAP_TOO_SMALL);
+}
+
+void	check_one_player(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (game->map.grid[i])
+	{
+		j = 0;
+		while (game->map.grid[i][j])
+		{
+			if (game->map.grid[i][j] == 'N' || game->map.grid[i][j] == 'S'
+				|| game->map.grid[i][j] == 'E' || game->map.grid[i][j] == 'W')
+			{
+				if (game->player.pos_x != 0 || game->player.pos_y != 0)
+					handle_error(game, ERR_NUM_PLAYER);
+				game->player.pos_x = i;
+				game->player.pos_y = j;
+			}
+			j++;
+		}
+		i++;
+	}
+    if(game->player.pos_x == 0 || game->player.pos_y == 0)
+        handle_error(game, ERR_PLAYER_DIR);
+}
+
+void	check_enclosure_border(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (game->map.grid[i])
+	{
+		j = 0;
+		while (game->map.grid[i][j])
+		{
+			if (i == 0 || i == game->map.height - 1 || j == 0
+				|| j == game->map.width - 1)
+			{
+				if (game->map.grid[i][j] != '1' && game->map.grid[i][j] != ' ')
+					handle_error(game, ERR_MAP_NO_WALLS);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	check_enclosure_side(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (game->map.grid[i])
+	{
+		j = 0;
+		while (game->map.grid[i][j])
+		{
+			if (isstartorground(game->map.grid[i][j]))
+			{
+				if (i == 0 || j == 0 || game->map.grid[i + 1] == NULL || 
+					j + 1 >= ft_sstrlen(game->map.grid[i]))
+				{
+					handle_error(game, ERR_MAP_NO_WALLS);
+				}
+				if (game->map.grid[i - 1][j] == ' ' || // Case du haut
+					game->map.grid[i + 1][j] == ' ' || // Case du bas
+					game->map.grid[i][j - 1] == ' ' || // Case de gauche
+					game->map.grid[i][j + 1] == ' ')   // Case de droite
+				{
+					handle_error(game, ERR_MAP_NO_WALLS);
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 
 void	map_replace(t_game *game)
 {
@@ -70,7 +169,6 @@ void	map_replace(t_game *game)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (game->map.grid[i])
 	{
 		j = 0;
@@ -80,21 +178,24 @@ void	map_replace(t_game *game)
 				game->map.grid[i][j] = '1';
 			j++;
 		}
-		if (game->map.grid[i][j] == '\0')
-			game->map.grid[i][j] = '\0';
 		i++;
 	}
 }
 
-// check si la map est entourée de murs
 void	check_map_valid(t_game *game)
 {
-	int i = 0;
-	map_replace(game);
-	while (game->map.grid[i])
-	{
-		printf("%s\n", game->map.grid[i]);
-		i++;
-	}
-	check_enclosure(game);
+	int	i;
+
+	check_char(game);
+	check_one_player(game);
+    map_height_valid(game);
+	check_enclosure_border(game);
+	check_enclosure_side(game);
+	i = 0;
+	// while (game->map.grid[i])
+	// {
+	// 	printf("Ligne %d: %s\n", i, game->map.grid[i]);
+	// 	i++;
+	// }
+	// map_replace(game);
 }
