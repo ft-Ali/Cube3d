@@ -52,8 +52,12 @@
 # define CYAN "\e[36m"
 # define WHITE "\e[37m"
 
+# define SCREEN_W 1280
+# define SCREEN_H 720
+# define SIZE_IMG 64
+
 # define WALL 1
-# define EMPTY 0
+# define FLOOR 0
 # define PLAYER_N 'N'
 # define PLAYER_S 'S'
 # define PLAYER_E 'E'
@@ -93,7 +97,6 @@ typedef struct s_map
 	char **grid;      // Tableau 2D pour la carte
 	int width;        // Largeur de la carte
 	int height;       // Hauteur de la carte
-	int start_line;   // Première ligne du fichier qui commence la carte
 	char *north_path; // Chemin vers la texture du mur nord
 	char *south_path; // Chemin vers la texture du mur sud
 	char *east_path;  // Chemin vers la texture du mur est
@@ -185,6 +188,7 @@ void	map_replace(t_game *game);
 /************************** ERROR HANDLING ******************************/
 
 void handle_error(t_game *game, char *msg);
+void	free_all(t_game *game);
 
 /************************** UTILS ******************************/
 void print_data(t_game *game);

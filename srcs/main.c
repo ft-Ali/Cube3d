@@ -105,6 +105,7 @@ int	main(int c, char **v)
 	// mlx_hook(game.win_ptr, 2, 1L << 0, /*afaire*/, &game);
 	// mlx_hook(game.win_ptr, 3, 1L << 1, /*afaire*/, &game);
 	// mlx_hook(game.win_ptr, 17, 0, /*afaire*/ , &game);
-	// mlx_loop(game.mlx_ptr);
-	handle_error(&game, "fin de programme main");
+	// mlx_loop(game.mlx_ptr);.
+	printf(GREEN "FIN DE PROGRAMME\n" RESET);
+	free_all(&game);
 }
