@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:01:56 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/31 10:59:41 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:29:30 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,14 +182,14 @@ void	map_replace(t_game *game)
 
 void	check_map_valid(t_game *game)
 {
-	int	i;
+	//int	i;
 
 	check_char(game);
 	check_one_player(game);
 	map_height_valid(game);
 	check_enclosure_border(game);
 	check_enclosure_side(game);
-	i = 0;
+	// i = 0;
 	// while (game->map.grid[i])
 	// {
 	// 	printf("Ligne %d: %s\n", i, game->map.grid[i]);

@@ -27,12 +27,12 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
-# include <stdbool.h>
 
 # define RESET "\e[0m"
 # define DEBUG 0
@@ -63,10 +63,9 @@
 # define PLAYER_E 'E'
 # define PLAYER_W 'W'
 
-
 // ERROR MESSAGES
 # define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
-# define SIZE_TAB 3
+# define RGB_SIZE 3
 # define ERR_FILE_NOT_CUB "Not a .cub file"
 # define ERR_FILE_NOT_XPM "Not an .xpm file"
 # define ERR_FILE_IS_DIR "Is a directory"
@@ -89,6 +88,7 @@
 # define ERR_PLAYER_DIR "Map has no player position (expected N, S, E or W)"
 # define ERR_MALLOC "Could not allocate memory"
 # define ERR_MLX_START "Could not start mlx"
+# define ERR_MLX_INIT "Could not initialize mlx"
 # define ERR_MLX_WIN "Could not create mlx window"
 # define ERR_MLX_IMG "Could not create mlx image"
 
@@ -102,9 +102,9 @@ typedef struct s_map
 	char *east_path;  // Chemin vers la texture du mur est
 	char *west_path;  // Chemin vers la texture du mur ouest
 	char *f_color;    // Couleur du sol (au format "R,G,B")
-	char  *c_color;    // Couleur du plafond (au format "R,G,B")
-	int		f_tab[SIZE_TAB];
-	int		c_tab[SIZE_TAB];
+	char *c_color;    // Couleur du plafond (au format "R,G,B")
+	int f_tab[RGB_SIZE];
+	int c_tab[RGB_SIZE];
 } t_map;
 
 typedef struct s_texture
@@ -139,16 +139,20 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-	double dir_x; // Direction X du rayon
-	double dir_y; // Direction Y du rayon
-	double side_dist_x; // Distance à parcourir pour franchir la première ligne verticale
-	double side_dist_y; // Distance à parcourir pour franchir la première ligne horizontale
-	double delta_dist_x; // Distance à parcourir entre chaque ligne verticale
-	double delta_dist_y; // Distance à parcourir entre chaque ligne horizontale
-	int step_x; // Direction de progression du rayon en X
-	int step_y; // Direction de progression du rayon en Y
-	int hit;    // Indicateur de collision avec un mur
-	int side; // Indique si le mur touché est vertical ou horizontal
+	double dir_x;          // Direction X du rayon
+	double dir_y;          // Direction Y du rayon
+	double side_dist_x;   
+		// Distance à parcourir pour franchir la première ligne verticale
+	double side_dist_y;   
+		// Distance à parcourir pour franchir la première ligne horizontale
+	double delta_dist_x;   // Distance à parcourir entre chaque ligne verticale
+	double delta_dist_y;  
+		// Distance à parcourir entre chaque ligne horizontale
+	int step_x;            // Direction de progression du rayon en X
+	int step_y;            // Direction de progression du rayon en Y
+	int hit;               // Indicateur de collision avec un mur
+	int side;             
+		// Indique si le mur touché est vertical ou horizontal
 	double perp_wall_dist; // Distance projetée au mur
 	int tex_num;           // Numéro de la texture (selon le mur touché)
 	double wall_x;         // Position exacte du point d'impact sur le mur
@@ -163,35 +167,39 @@ typedef struct s_game
 	t_img img;       // Image et textures
 	t_player player; // Joueur et sa position
 	t_ray ray;       // Raycasting
-	void *mlx_ptr;   // Pointeur vers l'instance MLX
-	void *win_ptr;   // Pointeur vers la fenêtre
+	void *mlx;       // Pointeur vers l'instance MLX
+	void *win;       // Pointeur vers la fenêtre
 } t_game;
 
 /************************** PARSING ******************************/
 
-void check_file_extension(char *path);
+void	check_file_extension(char *path);
 int	check_and_open_file(t_game *game, char *file);
-void parse_map_config(t_game *game, int map_fd);
-void parse_init(t_game *game, char *path);
+void	parse_map_config(t_game *game, int map_fd);
+void	parse_init(t_game *game, char *path);
 void	parse_color(t_game *game, char *rgb, char who);
-void process_line(char *line, t_game *game, char **tmp_map);
-void append_map_line(char **tmp_map, char *line);
-void parse_color_value(char *line, char **color, const char *identifier);
-void parse_texture_path(char *line, char **texture_path, const char *identifier);
+void	process_line(char *line, t_game *game, char **tmp_map);
+void	append_map_line(char **tmp_map, char *line);
+void	parse_color_value(char *line, char **color, const char *identifier);
+void	parse_texture_path(char *line, char **texture_path,
+		const char *identifier);
 int	check_map_height(char **map);
 void	check_textures(t_game *game);
 void	check_enclosure_border(t_game *game);
 void	check_enclosure_side(t_game *game);
-void check_map_valid(t_game *game);
+void	check_map_valid(t_game *game);
 int	map_width(t_game *game);
 void	map_replace(t_game *game);
 /************************** ERROR HANDLING ******************************/
 
-void handle_error(t_game *game, char *msg);
+void	handle_error(t_game *game, char *msg);
 void	free_all(t_game *game);
 
-/************************** UTILS ******************************/
-void print_data(t_game *game);
+/*****************************GRAPHICS*********************************/
 
+void	init_mlx(t_game *game);
+
+/************************** UTILS ******************************/
+void	print_data(t_game *game);
 
 #endif

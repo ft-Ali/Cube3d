@@ -84,8 +84,8 @@ void	init_struct(t_game *game)
 	game->ray.perp_wall_dist = 0.0;
 
 	// Initialiser les pointeurs MLX
-	game->mlx_ptr = NULL;
-	game->win_ptr = NULL;
+	game->mlx = NULL;
+	game->win = NULL;
 }
 
 int	main(int c, char **v)
@@ -95,17 +95,24 @@ int	main(int c, char **v)
 	if (c != 2)
 	{
 		ft_printf(RED BOLD ERR_USAGE RESET "\n");
-		return (0);
+		return (1);
 	}
 	init_struct(&game);
 	parse_init(&game, v[1]);
-	// texture_init(&game);
-	// init_mlx(&game);
+	game.mlx = mlx_init();
+	if (!game.mlx)
+		(free_all(&game), exit(EXIT_FAILURE));
+	game.win = mlx_new_window(game.mlx, 1920, 1080, "cub2debile");
+	if (!game.win)
+		(free_all(&game), exit(EXIT_FAILURE));
+	init_textures(&game);
+	init_mlx(&game);
 	// raycasting(&game);
 	// mlx_hook(game.win_ptr, 2, 1L << 0, /*afaire*/, &game);
 	// mlx_hook(game.win_ptr, 3, 1L << 1, /*afaire*/, &game);
 	// mlx_hook(game.win_ptr, 17, 0, /*afaire*/ , &game);
-	// mlx_loop(game.mlx_ptr);.
+	// mlx_loop(game.mlx);.
 	printf(GREEN "FIN DE PROGRAMME\n" RESET);
 	free_all(&game);
+	return (0);
 }

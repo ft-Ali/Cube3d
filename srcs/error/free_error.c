@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:57:31 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/29 11:15:02 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:55:13 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	free_all(t_game *game)
 		free(game->map.c_color);
 	// MLX
 	if (game->img.mlx_img)
-		mlx_destroy_image(game->mlx_ptr, game->img.mlx_img);
-	if (game->win_ptr)
-		mlx_destroy_window(game->mlx_ptr, game->win_ptr);
-	if (game->mlx_ptr)
-		mlx_destroy_display(game->mlx_ptr);
-	free(game->mlx_ptr);
+		mlx_destroy_image(game->mlx, game->img.mlx_img);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+		mlx_destroy_display(game->mlx);
+	free(game->mlx);
 }
 
 void	handle_error(t_game *game, char *msg)
