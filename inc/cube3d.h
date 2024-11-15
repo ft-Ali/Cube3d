@@ -62,6 +62,11 @@
 # define PLAYER_S 'S'
 # define PLAYER_E 'E'
 # define PLAYER_W 'W'
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
+# define IMG_SIZE 64
 
 // ERROR MESSAGES
 # define ERR_USAGE "usage: ./cub3d <path/to/map.cub>"
@@ -107,25 +112,36 @@ typedef struct s_map
 	int c_tab[RGB_SIZE];
 } t_map;
 
-typedef struct s_texture
-{
-	int width;  // Largeur de la texture
-	int height; // Hauteur de la texture
-	int *data;  // Tableau de pixels de la texture
-} t_texture;
+// typedef struct s_texture
+// {
+// 	int width;  // Largeur de la texture
+// 	int height; // Hauteur de la texture
+// 	int *data;  // Tableau de pixels de la texture
+// } t_texture;
 
 typedef struct s_img
 {
-	void *mlx_img;       // Pointeur vers l'image dans MLX
-	int *addr_ptr;       // Pointeur vers les données de l'image
-	int pixel_bits;      // Bits par pixel
-	int line_len;        // Longueur d'une ligne en octets
-	int endian;          // Endianess (ordre des octets)
-	t_texture north_tex; // Texture pour le mur nord
-	t_texture south_tex; // Texture pour le mur sud
-	t_texture east_tex;  // Texture pour le mur est
-	t_texture west_tex;  // Texture pour le mur ouest
+	void *mlx_img;
+	int *addr;
+	int bpp;
+	int line_len;
+	int endian;
+	int img_width;
+	int img_height;
 } t_img;
+
+// typedef struct s_img
+// {
+// 	void *mlx_img;       // Pointeur vers l'image dans MLX
+// 	int *addr_ptr;       // Pointeur vers les données de l'image
+// 	int pixel_bits;      // Bits par pixel
+// 	int line_len;        // Longueur d'une ligne en octets
+// 	int endian;          // Endianess (ordre des octets)
+// 	// t_texture north_tex; // Texture pour le mur nord
+// 	// t_texture south_tex; // Texture pour le mur sud
+// 	// t_texture east_tex;  // Texture pour le mur est
+// 	// t_texture west_tex;  // Texture pour le mur ouest
+// } t_img;
 
 typedef struct s_player
 {
@@ -139,20 +155,20 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-	double dir_x;          // Direction X du rayon
-	double dir_y;          // Direction Y du rayon
-	double side_dist_x;   
-		// Distance à parcourir pour franchir la première ligne verticale
-	double side_dist_y;   
-		// Distance à parcourir pour franchir la première ligne horizontale
-	double delta_dist_x;   // Distance à parcourir entre chaque ligne verticale
-	double delta_dist_y;  
-		// Distance à parcourir entre chaque ligne horizontale
-	int step_x;            // Direction de progression du rayon en X
-	int step_y;            // Direction de progression du rayon en Y
-	int hit;               // Indicateur de collision avec un mur
-	int side;             
-		// Indique si le mur touché est vertical ou horizontal
+	double dir_x; // Direction X du rayon
+	double dir_y; // Direction Y du rayon
+	double side_dist_x;
+	// Distance à parcourir pour franchir la première ligne verticale
+	double side_dist_y;
+	// Distance à parcourir pour franchir la première ligne horizontale
+	double delta_dist_x; // Distance à parcourir entre chaque ligne verticale
+	double delta_dist_y;
+	// Distance à parcourir entre chaque ligne horizontale
+	int step_x; // Direction de progression du rayon en X
+	int step_y; // Direction de progression du rayon en Y
+	int hit;    // Indicateur de collision avec un mur
+	int side;
+	// Indique si le mur touché est vertical ou horizontal
 	double perp_wall_dist; // Distance projetée au mur
 	int tex_num;           // Numéro de la texture (selon le mur touché)
 	double wall_x;         // Position exacte du point d'impact sur le mur
@@ -167,6 +183,7 @@ typedef struct s_game
 	t_img img;       // Image et textures
 	t_player player; // Joueur et sa position
 	t_ray ray;       // Raycasting
+	int **tex;       // Tableau de textures
 	void *mlx;       // Pointeur vers l'instance MLX
 	void *win;       // Pointeur vers la fenêtre
 } t_game;
@@ -198,6 +215,7 @@ void	free_all(t_game *game);
 /*****************************GRAPHICS*********************************/
 
 void	init_mlx(t_game *game);
+void	init_textures(t_game *game);
 
 /************************** UTILS ******************************/
 void	print_data(t_game *game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:17:17 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/31 11:08:12 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/15 22:12:43 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	parse_init(t_game *game, char *path)
 	parse_color(game, game->map.c_color, 'C');
 	check_map_valid(game);
 	// check_format(game); a faire pour pas que la map deborder de l'ecran
-	print_data(game);
 
 	close(map_fd);
 }

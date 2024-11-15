@@ -15,7 +15,7 @@ MLX_EX      =   $(MLX_LIB) $(MLX_FLAGS)
 
 
 CUBE_SRC	=	srcs/main.c srcs/checker/check_map.c srcs/checker/check_texture.c srcs/checker/check_color.c srcs/error/free_error.c \
-				srcs/checker/check_valid.c
+				srcs/checker/check_valid.c srcs/raycasting/textures.c
  
 CUBE_OBJ	=	$(CUBE_SRC:.c=.o)
 

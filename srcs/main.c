@@ -58,15 +58,15 @@ void	init_struct(t_game *game)
 	game->map.f_color = NULL;
 	game->map.c_color = NULL;
 
-	// Initialiser les images
-	game->img.mlx_img = NULL;
-	game->img.addr_ptr = NULL;
+	// // Initialiser les images
+	// game->img.mlx_img = NULL;
+	// game->img.addr_ptr = NULL;
 
-	// Initialiser les textures dans l'image
-	game->img.north_tex.data = NULL;
-	game->img.south_tex.data = NULL;
-	game->img.east_tex.data = NULL;
-	game->img.west_tex.data = NULL;
+	// // Initialiser les textures dans l'image
+	// game->img.north_tex.data = NULL;
+	// game->img.south_tex.data = NULL;
+	// game->img.east_tex.data = NULL;
+	// game->img.west_tex.data = NULL;
 
 	// Initialiser les variables du joueur
 	game->player.pos_x = 0.0;
@@ -88,6 +88,16 @@ void	init_struct(t_game *game)
 	game->win = NULL;
 }
 
+void    init_mlx(t_game *game)
+{
+    game->mlx = mlx_init();
+    if (!game->mlx)
+        handle_error(game, ERR_MLX_INIT);
+    game->win = mlx_new_window(game->mlx, SCREEN_W, SCREEN_H, "Cub3D");
+    if (!game->win)
+        handle_error(game, ERR_MLX_WIN);
+}
+
 int	main(int c, char **v)
 {
 	t_game game;
@@ -105,8 +115,11 @@ int	main(int c, char **v)
 	game.win = mlx_new_window(game.mlx, 1920, 1080, "cub2debile");
 	if (!game.win)
 		(free_all(&game), exit(EXIT_FAILURE));
-	init_textures(&game);
+	print_data(&game);
 	init_mlx(&game);
+	printf(GREEN "mlx_init\n" RESET);
+	init_textures(&game);
+	printf(GREEN "init_textures\n" RESET);
 	// raycasting(&game);
 	// mlx_hook(game.win_ptr, 2, 1L << 0, /*afaire*/, &game);
 	// mlx_hook(game.win_ptr, 3, 1L << 1, /*afaire*/, &game);
