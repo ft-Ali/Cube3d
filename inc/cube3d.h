@@ -216,6 +216,7 @@ void	free_all(t_game *game);
 
 void	init_mlx(t_game *game);
 void	init_textures(t_game *game);
+void	init_vectors(t_game *game);
 
 /************************** UTILS ******************************/
 void	print_data(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:56:34 by jules             #+#    #+#             */
-/*   Updated: 2024/11/15 22:32:18 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/18 19:58:20 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,8 @@ void    init_textures(t_game *game) //fonction qui  initialise les textures dans
     game->tex = ft_calloc(5, sizeof(int *));
 	if (!game->tex)
 		handle_error(game, ERR_MALLOC);
-	printf(GREEN "game->tex\n" RESET);
 	game->tex[NO] = get_tex(game, game->map.north_path);
-	printf(GREEN "game->tex[NO]\n" RESET);
 	game->tex[SO] = get_tex(game, game->map.south_path);
-	printf(GREEN "game->tex[SO]\n" RESET);
 	game->tex[WE] = get_tex(game, game->map.west_path);
-	printf(GREEN "game->tex[WE]\n" RESET);
 	game->tex[EA] = get_tex(game, game->map.east_path);
-	printf(GREEN "game->tex[EA]\n" RESET);
 }
