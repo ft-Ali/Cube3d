@@ -14,8 +14,8 @@ MLX_LIB		=	$(MLX_PATH)/$(MLX_FILE)
 MLX_EX      =   $(MLX_LIB) $(MLX_FLAGS)
 
 
-CUBE_SRC	=	srcs/main.c srcs/checker/check_map.c srcs/checker/check_texture.c srcs/checker/check_color.c srcs/error/free_error.c \
-				srcs/checker/check_valid.c srcs/raycasting/textures.c srcs/raycasting/vectors.c
+CUBE_SRC	=	srcs/main.c srcs/checker/check_map.c srcs/checker/check_texture.c srcs/checker/check_color.c srcs/utils/free_error.c \
+				srcs/checker/check_valid.c srcs/graphics/textures.c srcs/graphics/vectors.c srcs/utils/inits.c
  
 CUBE_OBJ	=	$(CUBE_SRC:.c=.o)
 

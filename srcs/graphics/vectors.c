@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:56:29 by jules             #+#    #+#             */
-/*   Updated: 2024/11/19 15:53:26 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/19 16:43:56 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,14 @@ void	init_vectors(t_game *game)
 	int	j;
 
 	i = -1;
-	game->ray = calloc(1, sizeof(t_ray));
-	if (!game->ray)
-		handle_error(game, ERR_MALLOC);
-	while (game->map.grid[++i])
+	while (game->map->grid[++i])
 	{
 		j = -1;
-		while (game->map.grid[i][++j])
+		while (game->map->grid[i][++j])
 		{
-			if (game->map.grid[i][j] == 'N' || game->map.grid[i][j] == 'S'
-				|| game->map.grid[i][j] == 'E' || game->map.grid[i][j] == 'W')
-				init_player(i, j, game->map.grid[i][j], game->ray);
+			if (game->map->grid[i][j] == 'N' || game->map->grid[i][j] == 'S'
+				|| game->map->grid[i][j] == 'E' || game->map->grid[i][j] == 'W')
+				init_player(i, j, game->map->grid[i][j], game->ray);
 		}
 	}
 }

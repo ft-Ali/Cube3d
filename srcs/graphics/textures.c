@@ -6,22 +6,11 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:56:34 by jules             #+#    #+#             */
-/*   Updated: 2024/11/18 19:58:20 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/19 16:55:54 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
-
-void	init_img(t_img *img)
-{
-	img->mlx_img = NULL;
-	img->addr = NULL;
-	img->bpp = 0;
-	img->line_len = 0;
-	img->endian = 0;
-	img->img_width = 0;
-	img->img_height = 0;
-}
 
 void	load_xpm(t_game *game, t_img *img, char *tex)
 {
@@ -59,13 +48,13 @@ int	*get_tex(t_game *game, char *tex)
 	return (array);
 }
 
-void    init_textures(t_game *game) //fonction qui  initialise les textures dans le game->img
+void	init_textures(t_game *game)
 {
-    game->tex = ft_calloc(5, sizeof(int *));
+	game->tex = ft_calloc(5, sizeof(int *));
 	if (!game->tex)
 		handle_error(game, ERR_MALLOC);
-	game->tex[NO] = get_tex(game, game->map.north_path);
-	game->tex[SO] = get_tex(game, game->map.south_path);
-	game->tex[WE] = get_tex(game, game->map.west_path);
-	game->tex[EA] = get_tex(game, game->map.east_path);
+	game->tex[NO] = get_tex(game, game->map->north_path);
+	game->tex[SO] = get_tex(game, game->map->south_path);
+	game->tex[WE] = get_tex(game, game->map->west_path);
+	game->tex[EA] = get_tex(game, game->map->east_path);
 }

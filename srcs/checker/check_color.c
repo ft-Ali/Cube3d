@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:03:09 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/10/29 10:50:39 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:27:02 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,23 @@ void	check_textures(t_game *game)
 	size_t		ext_len;
 
 	ext_len = ft_strlen(ext);
-	if (!game->map.north_path || !game->map.south_path || !game->map.west_path
-		|| !game->map.east_path)
+	if (!game->map->north_path || !game->map->south_path || !game->map->west_path
+		|| !game->map->east_path)
 		handle_error(game, "Error: Missing textures");
-	if (ft_strlen(game->map.north_path) < ext_len
-		|| ft_strncmp(game->map.north_path + ft_strlen(game->map.north_path)
+	if (ft_strlen(game->map->north_path) < ext_len
+		|| ft_strncmp(game->map->north_path + ft_strlen(game->map->north_path)
 			- ext_len, ext, ext_len) != 0)
 		handle_error(game, ERR_FILE_NOT_XPM);
-	if (ft_strlen(game->map.south_path) < ext_len
-		|| ft_strncmp(game->map.south_path + ft_strlen(game->map.south_path)
+	if (ft_strlen(game->map->south_path) < ext_len
+		|| ft_strncmp(game->map->south_path + ft_strlen(game->map->south_path)
 			- ext_len, ext, ext_len) != 0)
 		handle_error(game, ERR_FILE_NOT_XPM);
-	if (ft_strlen(game->map.west_path) < ext_len
-		|| ft_strncmp(game->map.west_path + ft_strlen(game->map.west_path)
+	if (ft_strlen(game->map->west_path) < ext_len
+		|| ft_strncmp(game->map->west_path + ft_strlen(game->map->west_path)
 			- ext_len, ext, ext_len) != 0)
 		handle_error(game, ERR_FILE_NOT_XPM);
-	if (ft_strlen(game->map.east_path) < ext_len
-		|| ft_strncmp(game->map.east_path + ft_strlen(game->map.east_path)
+	if (ft_strlen(game->map->east_path) < ext_len
+		|| ft_strncmp(game->map->east_path + ft_strlen(game->map->east_path)
 			- ext_len, ext, ext_len) != 0)
 		handle_error(game, ERR_FILE_NOT_XPM);
 }
@@ -83,9 +83,9 @@ void	parse_color(t_game *game, char *rgb, char who)
 		}
 		// printf("tab[%d]: %s\n", i, tab[i]);
 		if (who == 'F')
-			game->map.f_tab[i] = ft_atoi(tab[i]);
+			game->map->f_tab[i] = ft_atoi(tab[i]);
 		else if (who == 'C')
-			game->map.c_tab[i] = ft_atoi(tab[i]);
+			game->map->c_tab[i] = ft_atoi(tab[i]);
 		i++;
 	}
 	ft_free_split(tab);

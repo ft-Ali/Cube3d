@@ -139,10 +139,14 @@ typedef struct s_img
 // 	double camera_y; // Coordonnée Y de la caméra
 //  	double dir_x; // Direction X du rayon
 //  	double dir_y; // Direction Y du rayon
-//  	double side_dist_x; // Distance à parcourir pour franchir la première ligne verticale
-//  	double side_dist_y; // Distance à parcourir pour franchir la première ligne horizontale
-//  	double delta_dist_x; // Distance à parcourir entre chaque ligne verticale
-//  	double delta_dist_y; // Distance à parcourir entre chaque ligne horizontale
+//  	double side_dist_x;
+// Distance à parcourir pour franchir la première ligne verticale
+//  	double side_dist_y;
+// Distance à parcourir pour franchir la première ligne horizontale
+//  	double delta_dist_x;
+// Distance à parcourir entre chaque ligne verticale
+//  	double delta_dist_y;
+// Distance à parcourir entre chaque ligne horizontale
 // 	int map_x; // Position X de la case actuelle
 // 	int map_y; // Position Y de la case actuelle
 //  	int step_x; // Direction de progression du rayon en X
@@ -170,41 +174,41 @@ typedef struct s_img
 
 typedef struct s_ray
 {
-	double	pos[2];
-	double	dir[2];
-	double	plane[2];
-	double	camera[2];
-	double	raydir[2];
-	double	sidedist[2];
-	double	deltadist[2];
-	int		map[2];
-	int		step[2];
-	int		tex[2];
-	int		move[2];
-	int		rotate;
-	int		moved;
-	int		lineh;
-	int		drawstart;
-	int		drawend;
-	bool	hit;
-	int		side;
-	double	perpwalldist;
-	int		texnum;
-	double	wallx;
-	double	texstep;
-	double	texpos;
-	int		color;
-	int		y;
-}			t_ray;
+	double pos[2];
+	double dir[2];
+	double plane[2];
+	double camera[2];
+	double raydir[2];
+	double sidedist[2];
+	double deltadist[2];
+	int map[2];
+	int step[2];
+	int tex[2];
+	int move[2];
+	int rotate;
+	int moved;
+	int lineh;
+	int drawstart;
+	int drawend;
+	bool hit;
+	int side;
+	double perpwalldist;
+	int texnum;
+	double wallx;
+	double texstep;
+	double texpos;
+	int color;
+	int y;
+} t_ray;
 
 typedef struct s_game
 {
-	t_map map;       // Carte et informations associées
-	t_img img;       // Image et textures
-	t_ray *ray;       // Raycasting
-	int **tex;       // Tableau de textures
-	void *mlx;       // Pointeur vers l'instance MLX
-	void *win;       // Pointeur vers la fenêtre
+	t_map *map; // Carte et informations associées
+	t_img *img; // Image et textures
+	t_ray *ray; // Raycasting
+	int **tex;  // Tableau de textures
+	void *mlx;  // Pointeur vers l'instance MLX
+	void *win;  // Pointeur vers la fenêtre
 } t_game;
 
 /************************** PARSING ******************************/
@@ -226,10 +230,15 @@ void	check_enclosure_side(t_game *game);
 void	check_map_valid(t_game *game);
 int	map_width(t_game *game);
 void	map_replace(t_game *game);
+void	init_img(t_img *img);
+void	init_game(t_game *game);
+void	init_mlx(t_game *game);
+void	init_map(t_map *map);
+
 /************************** ERROR HANDLING ******************************/
 
 void	handle_error(t_game *game, char *msg);
-void	free_all(t_game *game);
+void	free_game(t_game *game);
 
 /*****************************GRAPHICS*********************************/
 
