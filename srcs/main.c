@@ -44,48 +44,78 @@ void print_data(t_game *game)
     ft_printf(MAGENTA "  Height: %d\n" RESET, game->map.height);
 }
 
-void	init_struct(t_game *game)
+// void	init_struct(t_game *game)
+// {
+// 	// Utiliser memset pour mettre tous les champs à zéro
+// 	ft_memset(game, 0, sizeof(t_game));
+
+// 	// Initialiser les pointeurs de la map
+// 	game->map.grid = NULL;
+// 	game->map.width = 0;
+// 	game->map.height = 0;
+// 	game->map.north_path = NULL;
+// 	game->map.south_path = NULL;
+// 	game->map.east_path = NULL;
+// 	game->map.west_path = NULL;
+// 	game->map.f_color = NULL;
+// 	game->map.c_color = NULL;
+
+// 	// Initialiser les variables du joueur
+// 	game->ray.pos_x = 0.0;
+// 	game->ray.pos_y = 0.0;
+// 	game->ray.dir_x = -1.0; // Par défaut, direction vers le nord
+// 	game->ray.dir_y = 0.0;
+// 	game->ray.plane_x = 0.0;
+// 	game->ray.plane_y = 0.66; // Champ de vision pour la caméra
+
+// 	// Init raycasting
+// 	game->ray.dir_x = 0;
+// 	game->ray.dir_y = 0;
+// 	game->ray.side_dist_x = 0;
+// 	game->ray.side_dist_y = 0;
+// 	game->ray.delta_dist_x = 0;
+// 	game->ray.delta_dist_y = 0;
+// 	game->ray.step_x = 0;
+// 	game->ray.step_y = 0;
+// 	game->ray.hit = 0;
+// 	game->ray.side = 0;
+// 	game->ray.perp_wall_dist = 0.0;
+// 	game->ray.tex_num = 0;
+// 	game->ray.wall_x = 0.0;
+// 	game->ray.tex_x = 0;
+// 	game->ray.tex_step = 0.0;
+// 	game->ray.tex_pos = 0.0;
+
+// 	// Initialiser les pointeurs MLX
+// 	game->mlx = NULL;
+// 	game->win = NULL;
+// }
+
+void init_game(t_game *game)
 {
+	t_ray ray;
+	t_map map;
+	t_img img;
+
 	// Utiliser memset pour mettre tous les champs à zéro
 	ft_memset(game, 0, sizeof(t_game));
 
 	// Initialiser les pointeurs de la map
-	game->map.grid = NULL;
-	game->map.north_path = NULL;
-	game->map.south_path = NULL;
-	game->map.east_path = NULL;
-	game->map.west_path = NULL;
-	game->map.f_color = NULL;
-	game->map.c_color = NULL;
+	ft_memset(&map, 0, sizeof(t_map));
+	game->map = map;
 
-	// // Initialiser les images
-	// game->img.mlx_img = NULL;
-	// game->img.addr_ptr = NULL;
+	// Initialiser les variables vectorielles
+	ft_memset(&ray, 0, sizeof(t_ray));
+	game->ray = &ray;
 
-	// // Initialiser les textures dans l'image
-	// game->img.north_tex.data = NULL;
-	// game->img.south_tex.data = NULL;
-	// game->img.east_tex.data = NULL;
-	// game->img.west_tex.data = NULL;
-
-	// Initialiser les variables du joueur
-	game->player.pos_x = 0.0;
-	game->player.pos_y = 0.0;
-	game->player.dir_x = -1.0; // Par défaut, direction vers le nord
-	game->player.dir_y = 0.0;
-	game->player.plane_x = 0.0;
-	game->player.plane_y = 0.66; // Champ de vision pour la caméra
-
-	// Init raycasting
-	game->ray.dir_x = 0;
-	game->ray.dir_y = 0;
-	game->ray.hit = 0;
-	game->ray.side = 0;
-	game->ray.perp_wall_dist = 0.0;
-
+	// Initialiser les pointeurs de l'image
+	ft_memset(&img, 0, sizeof(t_img));
+	game->img = img;
+	
 	// Initialiser les pointeurs MLX
 	game->mlx = NULL;
 	game->win = NULL;
+	game->tex = NULL;
 }
 
 void    init_mlx(t_game *game)
@@ -107,7 +137,7 @@ int	main(int c, char **v)
 		ft_printf(RED BOLD ERR_USAGE RESET "\n");
 		return (1);
 	}
-	init_struct(&game);
+	init_game(&game);
 	parse_init(&game, v[1]);
 	game.mlx = mlx_init();
 	if (!game.mlx)

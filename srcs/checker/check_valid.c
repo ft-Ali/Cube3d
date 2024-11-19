@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:01:56 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/12 15:29:30 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/19 15:46:38 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,16 @@ void	check_one_player(t_game *game)
 			if (game->map.grid[i][j] == 'N' || game->map.grid[i][j] == 'S'
 				|| game->map.grid[i][j] == 'E' || game->map.grid[i][j] == 'W')
 			{
-				if (game->player.pos_x != 0 || game->player.pos_y != 0)
+				if (game->map.player_x != 0 || game->map.player_y != 0)
 					handle_error(game, ERR_NUM_PLAYER);
-				game->player.pos_x = i;
-				game->player.pos_y = j;
+				game->map.player_x = i;
+				game->map.player_y = j;
 			}
 			j++;
 		}
 		i++;
 	}
-	if (game->player.pos_x == 0 || game->player.pos_y == 0)
+	if (game->map.player_x == 0 || game->map.player_y == 0)
 		handle_error(game, ERR_PLAYER_DIR);
 }
 

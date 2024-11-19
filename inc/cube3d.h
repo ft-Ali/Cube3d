@@ -66,6 +66,8 @@
 # define SO 1
 # define WE 2
 # define EA 3
+# define X 0
+# define Y 1
 # define IMG_SIZE 64
 
 // ERROR MESSAGES
@@ -102,6 +104,8 @@ typedef struct s_map
 	char **grid;      // Tableau 2D pour la carte
 	int width;        // Largeur de la carte
 	int height;       // Hauteur de la carte
+	int player_x;     // Position X du joueur
+	int player_y;     // Position Y du joueur
 	char *north_path; // Chemin vers la texture du mur nord
 	char *south_path; // Chemin vers la texture du mur sud
 	char *east_path;  // Chemin vers la texture du mur est
@@ -111,13 +115,6 @@ typedef struct s_map
 	int f_tab[RGB_SIZE];
 	int c_tab[RGB_SIZE];
 } t_map;
-
-// typedef struct s_texture
-// {
-// 	int width;  // Largeur de la texture
-// 	int height; // Hauteur de la texture
-// 	int *data;  // Tableau de pixels de la texture
-// } t_texture;
 
 typedef struct s_img
 {
@@ -130,59 +127,81 @@ typedef struct s_img
 	int img_height;
 } t_img;
 
-// typedef struct s_img
+// typedef struct s_ray
 // {
-// 	void *mlx_img;       // Pointeur vers l'image dans MLX
-// 	int *addr_ptr;       // Pointeur vers les données de l'image
-// 	int pixel_bits;      // Bits par pixel
-// 	int line_len;        // Longueur d'une ligne en octets
-// 	int endian;          // Endianess (ordre des octets)
-// 	// t_texture north_tex; // Texture pour le mur nord
-// 	// t_texture south_tex; // Texture pour le mur sud
-// 	// t_texture east_tex;  // Texture pour le mur est
-// 	// t_texture west_tex;  // Texture pour le mur ouest
-// } t_img;
+// 	double pos_x;   // Position X du joueur
+//  	double pos_y;   // Position Y du joueur
+//  	double dir_x;   // Direction X du joueur
+//  	double dir_y;   // Direction Y du joueur
+//  	double plane_x; // Composante X du plan de la caméra
+//  	double plane_y; // Composante Y du plan de la caméra
+// 	double camera_x; // Coordonnée X de la caméra
+// 	double camera_y; // Coordonnée Y de la caméra
+//  	double dir_x; // Direction X du rayon
+//  	double dir_y; // Direction Y du rayon
+//  	double side_dist_x; // Distance à parcourir pour franchir la première ligne verticale
+//  	double side_dist_y; // Distance à parcourir pour franchir la première ligne horizontale
+//  	double delta_dist_x; // Distance à parcourir entre chaque ligne verticale
+//  	double delta_dist_y; // Distance à parcourir entre chaque ligne horizontale
+// 	int map_x; // Position X de la case actuelle
+// 	int map_y; // Position Y de la case actuelle
+//  	int step_x; // Direction de progression du rayon en X
+//  	int step_y; // Direction de progression du rayon en Y
+// 	int tex_x; // Coordonnée X dans la texture
+// 	int tex_y; // Coordonnée Y dans la texture
+// 	int move_x; // Indicateur de déplacement en X
+// 	int move_y; // Indicateur de déplacement en Y
 
-typedef struct s_player
-{
-	double pos_x;   // Position X du joueur
-	double pos_y;   // Position Y du joueur
-	double dir_x;   // Direction X du joueur
-	double dir_y;   // Direction Y du joueur
-	double plane_x; // Composante X du plan de la caméra
-	double plane_y; // Composante Y du plan de la caméra
-} t_player;
+// 	int		rotate;
+// 	int		moved;
+// 	int		lineh;
+// 	int		drawstart;
+// 	int		drawend;
+// 	bool	hit;
+// 	int		side;
+// 	double	perpwalldist;
+// 	int		texnum;
+// 	double	wallx;
+// 	double	texstep;
+// 	double	texpos;
+// 	int		color;
+// 	int		y;
+// } t_ray;
 
 typedef struct s_ray
 {
-	double dir_x; // Direction X du rayon
-	double dir_y; // Direction Y du rayon
-	double side_dist_x;
-	// Distance à parcourir pour franchir la première ligne verticale
-	double side_dist_y;
-	// Distance à parcourir pour franchir la première ligne horizontale
-	double delta_dist_x; // Distance à parcourir entre chaque ligne verticale
-	double delta_dist_y;
-	// Distance à parcourir entre chaque ligne horizontale
-	int step_x; // Direction de progression du rayon en X
-	int step_y; // Direction de progression du rayon en Y
-	int hit;    // Indicateur de collision avec un mur
-	int side;
-	// Indique si le mur touché est vertical ou horizontal
-	double perp_wall_dist; // Distance projetée au mur
-	int tex_num;           // Numéro de la texture (selon le mur touché)
-	double wall_x;         // Position exacte du point d'impact sur le mur
-	int tex_x;             // Coordonnée X dans la texture
-	double tex_step;       // Pas pour le balayage de la texture
-	double tex_pos;        // Position actuelle dans la texture
-} t_ray;
+	double	pos[2];
+	double	dir[2];
+	double	plane[2];
+	double	camera[2];
+	double	raydir[2];
+	double	sidedist[2];
+	double	deltadist[2];
+	int		map[2];
+	int		step[2];
+	int		tex[2];
+	int		move[2];
+	int		rotate;
+	int		moved;
+	int		lineh;
+	int		drawstart;
+	int		drawend;
+	bool	hit;
+	int		side;
+	double	perpwalldist;
+	int		texnum;
+	double	wallx;
+	double	texstep;
+	double	texpos;
+	int		color;
+	int		y;
+}			t_ray;
 
 typedef struct s_game
 {
 	t_map map;       // Carte et informations associées
 	t_img img;       // Image et textures
-	t_player player; // Joueur et sa position
-	t_ray ray;       // Raycasting
+	t_ray *ray;       // Raycasting
 	int **tex;       // Tableau de textures
 	void *mlx;       // Pointeur vers l'instance MLX
 	void *win;       // Pointeur vers la fenêtre
