@@ -112,6 +112,8 @@ typedef struct s_map
 	char *west_path;  // Chemin vers la texture du mur ouest
 	char *f_color;	  // Couleur du sol (au format "R,G,B")
 	char *c_color;	  // Couleur du plafond (au format "R,G,B")
+	int fcolor_i;	  // Couleur du sol (au format int)
+	int ccolor_i;	  // Couleur du plafond (au format int)
 	int f_tab[RGB_SIZE];
 	int c_tab[RGB_SIZE];
 } t_map;

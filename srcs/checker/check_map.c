@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:17:17 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/25 14:56:40 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/25 15:49:27 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,14 @@ int	map_width(t_game *game)
 	return (max_width);
 }
 
+int	translate_color(int *rgb)
+{
+	int	color;
+
+	color = (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+	return (color);
+}
+
 void	parse_init(t_game *game, char *path)
 {
 	int map_fd;
@@ -88,6 +96,8 @@ void	parse_init(t_game *game, char *path)
 	// printf("MAP color: %s\n", game->map->f_color);
 	parse_color(game, game->map->f_color, 'F');
 	parse_color(game, game->map->c_color, 'C');
+	game->map->fcolor_i = translate_color(game->map->f_tab);
+	game->map->ccolor_i = translate_color(game->map->c_tab);
 	check_map_valid(game);
 	// check_format(game); a faire pour pas que la map deborder de l'ecran
 
