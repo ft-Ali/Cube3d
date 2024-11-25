@@ -6,13 +6,13 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:56:34 by jules             #+#    #+#             */
-/*   Updated: 2024/11/19 16:55:54 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/25 14:51:43 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
 
-void	load_xpm(t_game *game, t_img *img, char *tex)
+static void	load_xpm(t_game *game, t_img *img, char *tex)
 {
 	init_img(img);
 	img->mlx_img = mlx_xpm_file_to_image(game->mlx, tex, &img->img_width,
@@ -24,7 +24,7 @@ void	load_xpm(t_game *game, t_img *img, char *tex)
 			&img->line_len, &img->endian);
 }
 
-int	*get_tex(t_game *game, char *tex)
+static int	*get_tex(t_game *game, char *tex)
 {
 	t_img	tmp;
 	int		*array;

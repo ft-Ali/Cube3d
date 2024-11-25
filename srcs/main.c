@@ -64,6 +64,8 @@ int main(int c, char **v)
 	printf(GREEN "init_textures\n" RESET);
 	init_vectors(&game);
 	printf(GREEN "init_vectors\n" RESET);
+	init_pixel_tab(&game);
+	printf(GREEN "init_pixel_tab\n" RESET);
 	// raycasting(&game);
 	// mlx_hook(game.win_ptr, 2, 1L << 0, /*afaire*/, &game);
 	// mlx_hook(game.win_ptr, 3, 1L << 1, /*afaire*/, &game);

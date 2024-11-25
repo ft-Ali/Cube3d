@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:55:23 by jules             #+#    #+#             */
-/*   Updated: 2024/11/19 16:56:46 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/25 14:45:33 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void    init_mlx(t_game *game)
     game->mlx = mlx_init();
     if (!game->mlx)
         handle_error(game, ERR_MLX_INIT);
-    game->win = mlx_new_window(game->mlx, SCREEN_W, SCREEN_H, "cub3d");
+    game->win = mlx_new_window(game->mlx, WIN_W, WIN_H, "cub3d");
     if (!game->win)
         handle_error(game, ERR_MLX_WIN);
 }
