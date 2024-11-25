@@ -21,7 +21,7 @@
 # include "../.libft/gnl/get_next_line.h"
 # include "../.libft/libft.h"
 # include "../.libft/printf/ft_printf.h"
-# include "../.minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <fcntl.h>

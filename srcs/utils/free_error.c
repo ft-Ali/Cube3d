@@ -6,17 +6,14 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:57:31 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/19 17:00:40 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/25 11:13:39 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
 
-void	free_map(t_game *game)
+void	free_map(t_game *game, int i)
 {
-	int	i;
-
-	i = 0;
 	if (game->map->grid)
 	{
 		while (i < game->map->height)
@@ -39,18 +36,13 @@ void	free_map(t_game *game)
 		free(game->map->f_color);
 	if (game->map->c_color)
 		free(game->map->c_color);
+	free(game->map);
 }
 
 void	free_game(t_game *game)
 {
 	if (game->map)
-		free_map(game);
-	if (game->img)
-	{
-		if (game->img->mlx_img)
-			mlx_destroy_image(game->mlx, game->img->mlx_img);
-		free(game->img);
-	}
+		free_map(game, 0);
 	if (game->ray)
 		free(game->ray);
 	if (game->tex)
@@ -61,10 +53,19 @@ void	free_game(t_game *game)
 		free(game->tex[3]);
 		free(game->tex);
 	}
-	if (game->mlx)
-		mlx_destroy_display(game->mlx);
+	if (game->img)
+	{
+		if (game->img->mlx_img)
+			mlx_destroy_image(game->mlx, game->img->mlx_img);
+		free(game->img);
+	}
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
 }
 
 void	handle_error(t_game *game, char *msg)
