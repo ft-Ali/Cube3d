@@ -6,11 +6,11 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:56:34 by jules             #+#    #+#             */
-/*   Updated: 2024/11/25 14:51:43 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/25 18:42:48 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cube3d.h"
+#include "../../inc/cub3d.h"
 
 static void	load_xpm(t_game *game, t_img *img, char *tex)
 {

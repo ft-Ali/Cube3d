@@ -6,11 +6,11 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:17:17 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/25 15:49:27 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/25 18:42:48 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cube3d.h"
+#include "../../inc/cub3d.h"
 
 int	check_and_open_file(t_game *game, char *file)
 {

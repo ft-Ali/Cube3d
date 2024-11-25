@@ -6,11 +6,11 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 14:36:19 by jules             #+#    #+#             */
-/*   Updated: 2024/11/25 15:50:41 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/25 18:42:48 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/cube3d.h"
+# include "../../inc/cub3d.h"
 
 static void	free_pixel_tab(int **buffer)
 {
@@ -173,13 +173,13 @@ static void ray_loop(t_game *game, t_ray *ray, int **buf)
 {
     int	x;
 
-    (void)buf;
 	x = 0;
 	while (x < WIN_W)
 	{
 		ray_pos(ray, x);
         side_dist(ray);
         dda_algo(game, ray);
+		start_draw(ray);
         draw_pixels(game, ray, x, buf);
 		x++;
 	}
@@ -187,7 +187,7 @@ static void ray_loop(t_game *game, t_ray *ray, int **buf)
     free_pixel_tab(buf);
 }
 
-void    init_pixel_tab(t_game *game)
+void    raycasting(t_game *game)
 {
     int i_buf;
     int **buf;
@@ -212,5 +212,4 @@ void    init_pixel_tab(t_game *game)
         i_buf++;
     }
     ray_loop(game, game->ray, buf);
-    free_pixel_tab(buf);
 }

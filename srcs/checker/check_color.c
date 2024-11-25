@@ -6,11 +6,11 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:03:09 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/25 14:56:47 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/25 18:42:48 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cube3d.h"
+#include "../../inc/cub3d.h"
 
 static int	check_value(char *str)
 {

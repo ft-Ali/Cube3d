@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   cub3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+
 	+:+     */
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+
@@ -13,8 +13,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-#define CUBE3D_H
+#ifndef CUB3D_H
+#define CUB3D_H
 
 // libraries
 
@@ -56,6 +56,8 @@
 #define WIN_H 720
 #define SIZE_IMG 64
 
+#define PLAYEROTATE_SPEED 0.03
+#define ROTATE_SPEED 0.04
 #define WALL 1
 #define FLOOR 0
 #define PLAYER_N 'N'
@@ -128,51 +130,6 @@ typedef struct s_img
 	int img_width;
 	int img_height;
 } t_img;
-
-// typedef struct s_ray
-// {
-// 	double pos_x;   // Position X du joueur
-//  	double pos_y;   // Position Y du joueur
-//  	double dir_x;   // Direction X du joueur
-//  	double dir_y;   // Direction Y du joueur
-//  	double plane_x; // Composante X du plan de la caméra
-//  	double plane_y; // Composante Y du plan de la caméra
-// 	double camera_x; // Coordonnée X de la caméra
-// 	double camera_y; // Coordonnée Y de la caméra
-//  	double dir_x; // Direction X du rayon
-//  	double dir_y; // Direction Y du rayon
-//  	double side_dist_x;
-// Distance à parcourir pour franchir la première ligne verticale
-//  	double side_dist_y;
-// Distance à parcourir pour franchir la première ligne horizontale
-//  	double delta_dist_x;
-// Distance à parcourir entre chaque ligne verticale
-//  	double delta_dist_y;
-// Distance à parcourir entre chaque ligne horizontale
-// 	int map_x; // Position X de la case actuelle
-// 	int map_y; // Position Y de la case actuelle
-//  	int step_x; // Direction de progression du rayon en X
-//  	int step_y; // Direction de progression du rayon en Y
-// 	int tex_x; // Coordonnée X dans la texture
-// 	int tex_y; // Coordonnée Y dans la texture
-// 	int move_x; // Indicateur de déplacement en X
-// 	int move_y; // Indicateur de déplacement en Y
-
-// 	int		rotate;
-// 	int		moved;
-// 	int		lineh;
-// 	int		drawstart;
-// 	int		drawend;
-// 	bool	hit;
-// 	int		side;
-// 	double	perpwalldist;
-// 	int		texnum;
-// 	double	wallx;
-// 	double	texstep;
-// 	double	texpos;
-// 	int		color;
-// 	int		y;
-// } t_ray;
 
 typedef struct s_ray
 {
@@ -247,7 +204,11 @@ void free_game(t_game *game);
 void init_mlx(t_game *game);
 void init_textures(t_game *game);
 void init_vectors(t_game *game);
-void init_pixel_tab(t_game *game);
+void raycasting(t_game *game);
+int handle_key_press(int keycode, t_game *game);
+int handle_key_release(int keycode, t_game *game);
+int movedisplay(t_game *game);
+int on_destroy(t_game *game);
 
 /************************** UTILS ******************************/
 void print_data(t_game *game);

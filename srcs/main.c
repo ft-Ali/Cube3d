@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cube3d.h"
+#include "../inc/cub3d.h"
 
 void print_data(t_game *game)
 {
@@ -38,6 +38,42 @@ void print_data(t_game *game)
 	ft_printf(MAGENTA "  Height: %d\n" RESET, game->map->height);
 }
 
+int handle_key_press(int keycode, t_game *game)
+{
+    if (keycode == XK_Escape)
+        on_destroy(game);
+    if (keycode == XK_w)
+        game->ray->move[Y] = 1;
+    if (keycode == XK_s)
+        game->ray->move[Y] = -1;
+    if (keycode == XK_a)
+        game->ray->move[X] = -1;
+    if (keycode == XK_d)
+        game->ray->move[X] = 1;
+    if (keycode == XK_Left)
+        game->ray->rotate = -1;
+    if (keycode == XK_Right)
+        game->ray->rotate = 1;
+    return (0);
+}
+
+int handle_key_release(int keycode, t_game *game)
+{
+    if (keycode == XK_w)
+        game->ray->move[Y] = 0;
+    if (keycode == XK_s)
+        game->ray->move[Y] = 0;
+    if (keycode == XK_a)
+        game->ray->move[X] = 0;
+    if (keycode == XK_d)
+        game->ray->move[X] = 0;
+    if (keycode == XK_Left)
+        game->ray->rotate = 0;
+    if (keycode == XK_Right)
+        game->ray->rotate = 0;
+    return (0);
+}
+
 int on_destroy(t_game *game)
 {
 	free_game(game);
@@ -57,22 +93,16 @@ int main(int c, char **v)
 	}
 	init_game(&game);
 	parse_init(&game, v[1]);
-	//print_data(&game);
 	init_mlx(&game);
-	printf(GREEN "mlx_init\n" RESET);
 	init_textures(&game);
-	printf(GREEN "init_textures\n" RESET);
 	init_vectors(&game);
-	printf(GREEN "init_vectors\n" RESET);
-	init_pixel_tab(&game);
-	printf(GREEN "init_pixel_tab\n" RESET);
-	// raycasting(&game);
-	// mlx_hook(game.win_ptr, 2, 1L << 0, /*afaire*/, &game);
-	// mlx_hook(game.win_ptr, 3, 1L << 1, /*afaire*/, &game);
-	// mlx_hook(game.win_ptr, 17, 0, /*afaire*/ , &game);
+	raycasting(&game);
+	printf(GREEN "🎮 Game started\n" RESET);
+	mlx_hook(game.win, KeyPress, KeyPressMask, &handle_key_press, &game);
+	mlx_hook(game.win, KeyRelease, KeyReleaseMask, &handle_key_release, &game);
 	mlx_hook(game.win, DestroyNotify, 0, &on_destroy, &game);
+	mlx_loop_hook(game.mlx, &movedisplay, &game);
 	mlx_loop(game.mlx);
 	printf(GREEN "FIN DE PROGRAMME\n" RESET);
-	// free_game(&game);
 	return (0);
 }
