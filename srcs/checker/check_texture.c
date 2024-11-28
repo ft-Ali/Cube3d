@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:53:15 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/28 14:21:42 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/28 14:30:44 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	process_line(char *line, t_game *game, char **tmp_map)
 		parse_color_value(line, &game->map->c_color, "C");
 	else if (ft_isdigit(line[0]) || line[0] == ' ')
 		append_map_line(tmp_map, line);
-}
+} 
 
 void	parse_map_config(t_game *game, int map_fd)
 {
