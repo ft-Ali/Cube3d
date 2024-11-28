@@ -160,21 +160,32 @@ typedef struct s_ray
 	int y;
 } t_ray;
 
+typedef struct order
+{
+	bool no;
+	bool so;
+	bool we;
+	bool ea;
+	bool f;
+	bool c;
+} t_order;
+
 typedef struct s_game
 {
 	t_map *map; // Carte et informations associées
 	t_img *img; // Image et textures
 	t_ray *ray; // Raycasting
-	int fd;		// File descriptor du fichier map
+	t_order *order;
+	int fd; // File descriptor du fichier map
 	bool f_NO;
 	bool f_SO;
 	bool f_WE;
 	bool f_EA;
 	bool f_F;
 	bool f_C;
-	int **tex;	// Tableau de textures
-	void *mlx;	// Pointeur vers l'instance MLX
-	void *win;	// Pointeur vers la fenêtre
+	int **tex; // Tableau de textures
+	void *mlx; // Pointeur vers l'instance MLX
+	void *win; // Pointeur vers la fenêtre
 } t_game;
 
 /************************** PARSING ******************************/
@@ -183,11 +194,8 @@ int check_and_open_file(t_game *game, char *file);
 void parse_map_config(t_game *game, int map_fd);
 void parse_init(t_game *game, char *path);
 void parse_color(t_game *game, char *rgb, char who);
-void process_line(char *line, t_game *game, char **tmp_map);
-void append_map_line(char **tmp_map, char *line);
-void parse_color_value(char *line, char **color, const char *identifier);
-void parse_texture_path(char *line, char **texture_path,
-						const char *identifier);
+void parse_color_value(char *line, char **color, const char *identifier, t_game *game);
+void parse_texture_path(char *line, char **texture_path, const char *identifier, t_game *game);
 int check_map_height(char **map);
 void check_textures(t_game *game);
 void check_enclosure_border(t_game *game);
@@ -196,7 +204,7 @@ void check_map_valid(t_game *game);
 int map_width(t_game *game);
 void map_replace(t_game *game);
 void init_img(t_img *img);
-void init_game(t_game *game);
+void init_game(t_game *game, t_ray *ray, t_map *map, t_img *img);
 void init_mlx(t_game *game);
 void init_map(t_map *map);
 

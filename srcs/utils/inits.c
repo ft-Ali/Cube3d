@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:55:23 by jules             #+#    #+#             */
-/*   Updated: 2024/11/25 18:42:48 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/28 18:19:11 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ void    init_mlx(t_game *game)
         handle_error(game, ERR_MLX_WIN);
 }
 
+void	init_order(t_order *order)
+{
+	order->no = false;
+	order->so = false;
+	order->we = false;
+	order->ea = false;
+	order->f = false;
+	order->c = false;
+}
+
 void	init_img(t_img *img)
 {
 	img->mlx_img = NULL;
@@ -52,11 +62,9 @@ void	init_img(t_img *img)
 	img->img_height = 0;
 }
 
-void init_game(t_game *game)
+void init_game(t_game *game, t_ray *ray, t_map *map, t_img *img)
 {
-	t_ray *ray;
-	t_map *map;
-	t_img *img;
+	t_order *order;
 
 	game->mlx = NULL;
 	game->win = NULL;
@@ -75,4 +83,8 @@ void init_game(t_game *game)
 		handle_error(game, ERR_MALLOC);
 	init_img(img);
 	game->img = img;
+	order = ft_calloc(1, sizeof(t_order));
+	if (!order)
+		handle_error(game, ERR_MALLOC);
+	game->order = order;
 }

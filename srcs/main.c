@@ -91,7 +91,7 @@ int main(int c, char **v)
 		ft_printf(RED BOLD ERR_USAGE RESET "\n");
 		return (1);
 	}
-	init_game(&game);
+	init_game(&game, NULL, NULL, NULL);
 	init_bools(&game);
 	parse_init(&game, v[1]);
 	init_mlx(&game);

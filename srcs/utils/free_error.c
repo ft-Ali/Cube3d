@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:57:31 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/28 14:16:09 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/28 18:14:56 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ void	free_map(t_game *game, int i)
 	free(game->map);
 }
 
+void	free_tex(t_game *game)
+{
+	free(game->tex[0]);
+	free(game->tex[1]);
+	free(game->tex[2]);
+	free(game->tex[3]);
+	free(game->tex);
+}
+
 void	free_game(t_game *game)
 {
 	if (game->map)
@@ -46,19 +55,15 @@ void	free_game(t_game *game)
 	if (game->ray)
 		free(game->ray);
 	if (game->tex)
-	{
-		free(game->tex[0]);
-		free(game->tex[1]);
-		free(game->tex[2]);
-		free(game->tex[3]);
-		free(game->tex);
-	}
+		free_tex(game);
 	if (game->img)
 	{
 		if (game->img->mlx_img)
 			mlx_destroy_image(game->mlx, game->img->mlx_img);
 		free(game->img);
 	}
+	if (game->order)
+		free(game->order);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
