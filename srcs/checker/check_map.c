@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:17:17 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/28 12:19:31 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/28 14:15:45 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	check_and_open_file(t_game *game, char *file)
 		close(map_fd);
 		handle_error(game, "Map does not exist");
 	}
+	game->fd = map_fd;
 	return (map_fd);
 }
 void	check_file_extension(t_game *game, char *path)
@@ -38,12 +39,7 @@ void	check_file_extension(t_game *game, char *path)
 	len = ft_strlen(path);
 	i = len - 4;
 	if (ft_strncmp(&path[i], ".cub", 4) != 0)
-	{
-		// ft_printf(RED BOLD "Error\n" RESET);
-		// ft_printf(RED "File is not a .cub file\n" RESET);
-		// exit(0);
 		handle_error(game, "File is not a .cub file");
-	}
 }
 
 /**

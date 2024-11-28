@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 15:56:34 by jules             #+#    #+#             */
-/*   Updated: 2024/11/25 18:42:48 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/28 13:52:13 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static void	load_xpm(t_game *game, t_img *img, char *tex)
 	img->mlx_img = mlx_xpm_file_to_image(game->mlx, tex, &img->img_width,
 			&img->img_height);
 	if (!img->mlx_img)
-		handle_error(game, "gros caca");
-	printf(GREEN "img->mlx_img\n" RESET);
+		handle_error(game, "texture not found");
 	img->addr = (int *)mlx_get_data_addr(img->mlx_img, &img->bpp,
 			&img->line_len, &img->endian);
 }
@@ -32,11 +31,9 @@ static int	*get_tex(t_game *game, char *tex)
 	int		y;
 
 	load_xpm(game, &tmp, tex);
-	printf(GREEN "load_xpm\n" RESET);
 	array = ft_calloc(1, sizeof(int) * (IMG_SIZE * IMG_SIZE));
 	if (!array)
 		handle_error(game, ERR_MALLOC);
-	printf(GREEN "array\n" RESET);
 	y = -1;
 	while (++y < IMG_SIZE)
 	{

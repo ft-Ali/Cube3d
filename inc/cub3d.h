@@ -165,6 +165,13 @@ typedef struct s_game
 	t_map *map; // Carte et informations associées
 	t_img *img; // Image et textures
 	t_ray *ray; // Raycasting
+	int fd;		// File descriptor du fichier map
+	bool f_NO;
+	bool f_SO;
+	bool f_WE;
+	bool f_EA;
+	bool f_F;
+	bool f_C;
 	int **tex;	// Tableau de textures
 	void *mlx;	// Pointeur vers l'instance MLX
 	void *win;	// Pointeur vers la fenêtre

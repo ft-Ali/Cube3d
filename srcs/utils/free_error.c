@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:57:31 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/25 18:42:48 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/28 14:16:09 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	handle_error(t_game *game, char *msg)
 {
 	ft_printf(RED BOLD "❌ Error ❌\n" RESET);
 	ft_printf(RED "⚠️  %s ⚠️ \n" RESET, msg);
+	if (game->fd)
+		close(game->fd);
 	free_game(game);
 	exit(0);
 }

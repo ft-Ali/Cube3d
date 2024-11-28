@@ -97,12 +97,11 @@ int main(int c, char **v)
 	init_textures(&game);
 	init_vectors(&game);
 	raycasting(&game);
-	printf(GREEN "🎮 Game started\n" RESET);
+	// printf(GREEN "🎮 Game started\n" RESET);
 	mlx_hook(game.win, KeyPress, KeyPressMask, &handle_key_press, &game);
 	mlx_hook(game.win, KeyRelease, KeyReleaseMask, &handle_key_release, &game);
 	mlx_hook(game.win, DestroyNotify, 0, &on_destroy, &game);
 	mlx_loop_hook(game.mlx, &movedisplay, &game);
 	mlx_loop(game.mlx);
-	printf(GREEN "FIN DE PROGRAMME\n" RESET);
 	return (0);
 }
