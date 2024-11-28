@@ -92,6 +92,7 @@ int main(int c, char **v)
 		return (1);
 	}
 	init_game(&game);
+	init_bools(&game);
 	parse_init(&game, v[1]);
 	init_mlx(&game);
 	init_textures(&game);
