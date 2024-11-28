@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:03:09 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/25 18:42:48 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/28 15:30:27 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	check_textures(t_game *game)
 	size_t		ext_len;
 
 	ext_len = ft_strlen(ext);
+	// printf("game->map->north_path: %s\n", game->map->north_path);
 	if (!game->map->north_path || !game->map->south_path || !game->map->west_path
 		|| !game->map->east_path)
 		handle_error(game, "Error: Missing textures");

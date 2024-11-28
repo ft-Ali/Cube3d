@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:53:15 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/28 15:13:22 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/28 15:30:46 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	append_map_line(char **tmp_map, char *line)
 
 void	process_line(char *line, t_game *game, char **tmp_map)
 {
-	if ((ft_strncmp(line, "NO", 2) == 0) && (!game->f_NO))
+	if ((ft_strncmp(line, "NO", 2) == 0)/*  && (!game->f_NO) */)
 	{
-		game->f_NO = true;
+		// game->f_NO = true;
 		parse_texture_path(line, &game->map->north_path, "NO");
 	}
 	else if (ft_strncmp(line, "SO", 2) == 0)
