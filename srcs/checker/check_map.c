@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:17:17 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/25 18:42:48 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/28 12:19:31 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_and_open_file(t_game *game, char *file)
 	}
 	return (map_fd);
 }
-void	check_file_extension(char *path)
+void	check_file_extension(t_game *game, char *path)
 {
 	int	len;
 	int	i;
@@ -39,9 +39,10 @@ void	check_file_extension(char *path)
 	i = len - 4;
 	if (ft_strncmp(&path[i], ".cub", 4) != 0)
 	{
-		ft_printf(RED BOLD "Error\n" RESET);
-		ft_printf(RED "File is not a .cub file\n" RESET);
-		exit(0);
+		// ft_printf(RED BOLD "Error\n" RESET);
+		// ft_printf(RED "File is not a .cub file\n" RESET);
+		// exit(0);
+		handle_error(game, "File is not a .cub file");
 	}
 }
 
@@ -89,7 +90,7 @@ void	parse_init(t_game *game, char *path)
 {
 	int map_fd;
 
-	check_file_extension(path);
+	check_file_extension(game, path);
 	map_fd = check_and_open_file(game, path);
 	parse_map_config(game, map_fd);
 

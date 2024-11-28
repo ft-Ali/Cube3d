@@ -172,7 +172,6 @@ typedef struct s_game
 
 /************************** PARSING ******************************/
 
-void check_file_extension(char *path);
 int check_and_open_file(t_game *game, char *file);
 void parse_map_config(t_game *game, int map_fd);
 void parse_init(t_game *game, char *path);
