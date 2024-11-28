@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:53:15 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/28 14:30:44 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:57:53 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	append_map_line(char **tmp_map, char *line)
 
 void	process_line(char *line, t_game *game, char **tmp_map)
 {
-	if ((ft_strncmp(line, "NO", 2) == 0) && (!game->f_NO))
-		(game->f_NO = true, (line, &game->map->north_path, "NO"));
+	if (ft_strncmp(line, "NO", 2) == 0)
+	 	parse_texture_path(line, &game->map->south_path, "SO");
 	else if (ft_strncmp(line, "SO", 2) == 0)
 		parse_texture_path(line, &game->map->south_path, "SO");
 	else if (ft_strncmp(line, "WE", 2) == 0)
@@ -57,7 +57,7 @@ void	process_line(char *line, t_game *game, char **tmp_map)
 		parse_color_value(line, &game->map->c_color, "C");
 	else if (ft_isdigit(line[0]) || line[0] == ' ')
 		append_map_line(tmp_map, line);
-} 
+}
 
 void	parse_map_config(t_game *game, int map_fd)
 {

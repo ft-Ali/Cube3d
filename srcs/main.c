@@ -12,30 +12,40 @@
 
 #include "../inc/cub3d.h"
 
-void print_data(t_game *game)
+// void print_data(t_game *game)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	ft_printf(BOLD "🖼️ Textures:\n" RESET);
+// 	ft_printf(GREEN "  North: %s\n" RESET, game->map->north_path);
+// 	ft_printf(GREEN "  South: %s\n" RESET, game->map->south_path);
+// 	ft_printf(GREEN "  West: %s\n" RESET, game->map->west_path);
+// 	ft_printf(GREEN "  East: %s\n" RESET, game->map->east_path);
+
+// 	ft_printf(BOLD "🎨 Colors:\n" RESET);
+// 	ft_printf(CYAN "  Floor: %s\n" RESET, game->map->f_color);
+// 	ft_printf(CYAN "  Ceiling: %s\n" RESET, game->map->c_color);
+
+// 	ft_printf(BOLD "🗺️ Map:\n" RESET);
+// 	if (game->map->grid == NULL)
+// 		return;
+// 	while (game->map->grid[i])
+// 	{
+// 		ft_printf(YELLOW "  %s\n" RESET, game->map->grid[i]);
+// 		i++;
+// 	}
+// 	ft_printf(MAGENTA "  Height: %d\n" RESET, game->map->height);
+// }
+
+void init_bool(t_game *game)
 {
-	int i;
-
-	i = 0;
-	ft_printf(BOLD "🖼️ Textures:\n" RESET);
-	ft_printf(GREEN "  North: %s\n" RESET, game->map->north_path);
-	ft_printf(GREEN "  South: %s\n" RESET, game->map->south_path);
-	ft_printf(GREEN "  West: %s\n" RESET, game->map->west_path);
-	ft_printf(GREEN "  East: %s\n" RESET, game->map->east_path);
-
-	ft_printf(BOLD "🎨 Colors:\n" RESET);
-	ft_printf(CYAN "  Floor: %s\n" RESET, game->map->f_color);
-	ft_printf(CYAN "  Ceiling: %s\n" RESET, game->map->c_color);
-
-	ft_printf(BOLD "🗺️ Map:\n" RESET);
-	if (game->map->grid == NULL)
-		return;
-	while (game->map->grid[i])
-	{
-		ft_printf(YELLOW "  %s\n" RESET, game->map->grid[i]);
-		i++;
-	}
-	ft_printf(MAGENTA "  Height: %d\n" RESET, game->map->height);
+	game->f_NO = false;
+	game->f_SO = false;
+	game->f_WE = false;
+	game->f_EA = false;
+	game->f_F = false;
+	game->f_C = false;
 }
 
 int handle_key_press(int keycode, t_game *game)
@@ -91,6 +101,7 @@ int main(int c, char **v)
 		ft_printf(RED BOLD ERR_USAGE RESET "\n");
 		return (1);
 	}
+	// init_bool(&game);
 	init_game(&game);
 	parse_init(&game, v[1]);
 	init_mlx(&game);
