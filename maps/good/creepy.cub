@@ -1,10 +1,10 @@
-NO srcs/red.xpm
-EA srcs/blue.xpm
-SO srcs/green.xpm
-WE srcs/yellow.xpm
+NO srcs/moire.xpm
+EA srcs/moire.xpm
+SO srcs/moire.xpm
+WE srcs/moire.xpm
 
-C 35,19,73
-F 15,6,40
+C 255,255,255
+F 255,255,255
 
 111111111111111
 111111000111111

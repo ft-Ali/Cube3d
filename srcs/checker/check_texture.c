@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 11:53:15 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/28 15:30:46 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:58:05 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,77 @@ void	process_line(char *line, t_game *game, char **tmp_map)
 	else if (ft_isdigit(line[0]) || line[0] == ' ')
 		append_map_line(tmp_map, line);
 }
+void check_double(char *line, t_game *game)
+{
+	if (ft_strncmp(line, "NO", 2) == 0)
+	{
+		if (game->f_NO)
+			handle_error(game, "Error: Duplicate NO texture");
+		game->f_NO = true;
+	}
+	else if (ft_strncmp(line, "SO", 2) == 0)
+	{
+		if (game->f_SO)
+			handle_error(game, "Error: Duplicate SO texture");
+		game->f_SO = true;
+	}
+	else if (ft_strncmp(line, "WE", 2) == 0)
+	{
+		if (game->f_WE)
+			handle_error(game, "Error: Duplicate WE texture");
+		game->f_WE = true;
+	}
+	else if (ft_strncmp(line, "EA", 2) == 0)
+	{
+		if (game->f_EA)
+			handle_error(game, "Error: Duplicate EA texture");
+		game->f_EA = true;
+	}
+	else if (ft_strncmp(line, "F", 1) == 0)
+	{
+		if (game->f_F)
+			handle_error(game, "Error: Duplicate F color");
+		game->f_F = true;
+	}
+	else if (ft_strncmp(line, "C", 1) == 0)
+	{
+		if (game->f_C)
+			handle_error(game, "Error: Duplicate C color");
+		game->f_C = true;
+	}
+}
+
+void check_order_valid(char *line, t_game *game)
+{
+	int i = 0;
+	while (line[i]){
+	printf("line[i]: %c\n", line[i]);
+		i++;
+	}
+		
+	if(line[i - 1] != '1'){
+		
+		handle_error(game, "Error: Invalid map order");}
+}
 
 void	parse_map_config(t_game *game, int map_fd)
 {
 	char	*line;
 	char	*tmp_map;
-
+	int count = 0;
 	tmp_map = ft_strdup("");
 	line = get_next_line(map_fd);
+	printf("line: %s\n", line);
 	while (line)
 	{
 		process_line(line, game, &tmp_map);
+		check_double(line, game);
 		free(line);
+		count++;
 		line = get_next_line(map_fd);
 	}
+	printf("%d\n", count);
+	
 	game->map->grid = ft_split(tmp_map, '\n');
 	free(tmp_map);
 	game->map->height = check_map_height(game->map->grid);

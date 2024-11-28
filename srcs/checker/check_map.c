@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:17:17 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/28 16:12:17 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:25:09 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,35 +91,35 @@ void init_bools(t_game *game)
 	game->f_F = false;
 	game->f_C = false;
 }
-void check_map_order(t_game *game)
-{
-	int	i;
-	int	j;
+// void check_map_order(t_game *game)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	while (game->map->grid[i])
-	{
-		j = 0;
-		while (game->map->grid[i][j])
-		{
-			if (game->map->grid[i][j] == 'N' || game->map->grid[i][j] == 'S' || game->map->grid[i][j] == 'E' || game->map->grid[i][j] == 'W')
-			{
-				if (game->map->grid[i][j] == 'N' || game->map->grid[i][j] == 'S')
-				{
-					if (game->map->grid[i][j + 1] != '1' && game->map->grid[i][j + 1] != ' ')
-						handle_error(game, "Error: Invalid map order");
-				}
-				if (game->map->grid[i][j] == 'E' || game->map->grid[i][j] == 'W')
-				{
-					if (game->map->grid[i + 1][j] != '1' && game->map->grid[i + 1][j] != ' ')
-						handle_error(game, "Error: Invalid map order");
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (game->map->grid[i])
+// 	{
+// 		j = 0;
+// 		while (game->map->grid[i][j])
+// 		{
+// 			if (game->map->grid[i][j] == 'N' || game->map->grid[i][j] == 'S' || game->map->grid[i][j] == 'E' || game->map->grid[i][j] == 'W')
+// 			{
+// 				if (game->map->grid[i][j] == 'N' || game->map->grid[i][j] == 'S')
+// 				{
+// 					if (game->map->grid[i][j + 1] != '1' && game->map->grid[i][j + 1] != ' ')
+// 						handle_error(game, "Error: Invalid map order");
+// 				}
+// 				if (game->map->grid[i][j] == 'E' || game->map->grid[i][j] == 'W')
+// 				{
+// 					if (game->map->grid[i + 1][j] != '1' && game->map->grid[i + 1][j] != ' ')
+// 						handle_error(game, "Error: Invalid map order");
+// 				}
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
 void	parse_init(t_game *game, char *path)
 {
@@ -135,7 +135,7 @@ void	parse_init(t_game *game, char *path)
 	game->map->fcolor_i = translate_color(game->map->f_tab);
 	game->map->ccolor_i = translate_color(game->map->c_tab);
 	check_map_valid(game);
-	check_map_order(game);
+	// check_map_order(game);
 	// check_format(game); a faire pour pas que la map deborder de l'ecran
 
 	close(map_fd);
