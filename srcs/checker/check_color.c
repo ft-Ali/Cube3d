@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:03:09 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/28 15:30:27 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:48:43 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ static int	check_value(char *str)
 		return (1);
 	return (0);
 }
+
 void	check_textures(t_game *game)
 {
 	const char	*ext = ".xpm";
 	size_t		ext_len;
 
 	ext_len = ft_strlen(ext);
-	// printf("game->map->north_path: %s\n", game->map->north_path);
-	if (!game->map->north_path || !game->map->south_path || !game->map->west_path
-		|| !game->map->east_path)
+	if (!game->map->north_path || !game->map->south_path
+		|| !game->map->west_path || !game->map->east_path)
 		handle_error(game, "Error: Missing textures");
 	if (ft_strlen(game->map->north_path) < ext_len
 		|| ft_strncmp(game->map->north_path + ft_strlen(game->map->north_path)
@@ -82,7 +82,6 @@ void	parse_color(t_game *game, char *rgb, char who)
 			ft_free_split(tab);
 			handle_error(game, ERR_TEX_RGB_VAL);
 		}
-		// printf("tab[%d]: %s\n", i, tab[i]);
 		if (who == 'F')
 			game->map->f_tab[i] = ft_atoi(tab[i]);
 		else if (who == 'C')

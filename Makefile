@@ -15,14 +15,15 @@ MLX_EX      =   $(MLX_LIB) $(MLX_FLAGS)
 
 
 CUBE_SRC	=	srcs/main.c srcs/checker/check_map.c srcs/checker/check_texture.c srcs/checker/check_color.c \
-				srcs/utils/free_error.c srcs/checker/check_valid.c srcs/graphics/textures.c \
+				srcs/utils/free_error.c srcs/checker/check_valid.c srcs/graphics/textures.c srcs/graphics/raycasting_utils.c \
 				srcs/graphics/vectors.c srcs/utils/inits.c srcs/graphics/raycasting.c srcs/mov.c \
+				srcs/checker/check_map_valid2.c srcs/checker/map_utils.c srcs/checker/parse_config.c srcs/mov_2.c \
  
 CUBE_OBJ	=	$(CUBE_SRC:.c=.o)
 
 
 .c.o:
-	@printf "\r\033[K[cub3D] \033[0;32mBuilding : $<\033[0m\n"
+	@printf "\r\033[K[cub3D] \033[0;32mBuilding : $<\033[0m"
 	@$(CC) $(FLAG) -c $< -o $@
 
 all:	$(CUBE_NAME)
