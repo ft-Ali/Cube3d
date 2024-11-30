@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 11:07:21 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/30 20:52:10 by jules            ###   ########.fr       */
+/*   Updated: 2024/11/30 20:56:42 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ bool	append_map_line(char **tmp_map, char *line, t_game *game)
 void	handle_flag(char *line, bool *flag, t_game *game, char *tmp_map)
 {
 	if (line && *flag)
-		(free(line), free(tmp_map), handle_error(game, "Error: Duplicate texture or color"));
+	{
+		free(line);
+		free(tmp_map);
+		handle_error(game, "Error: Duplicate texture or color");
+	}
 	*flag = true;
 }
 
