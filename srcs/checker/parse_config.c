@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_config.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 11:20:25 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/29 11:57:18 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/30 20:36:39 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	parse_map_config(t_game *game, int map_fd)
 		if (!process_line(line, game, &tmp_map))
 			(free(line), free(tmp_map), handle_error(game,
 					"Error: Invalid map configuration"));
-		check_double(line, game);
+		check_double(line, game, tmp_map);
 		free(line);
 		line = get_next_line(map_fd);
 	}

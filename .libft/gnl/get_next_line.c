@@ -3,150 +3,99 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 11:57:03 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/29 10:30:55 by alsiavos         ###   ########.fr       */
+/*   Created: 2024/08/28 18:11:26 by yabejani          #+#    #+#             */
+/*   Updated: 2024/11/30 20:07:22 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-// supprime la line et trouve la nouvelle
-char	*ft_next(char *buffer)
-{
-	int		i;
-	int		j;
-	char	*line;
 
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	if (!buffer[i] || buffer[i] == '\0')
-	{
-		free(buffer);
-		return (NULL);
-	}
-	line = malloc((ft_strlen(buffer) - i + 1) * sizeof(char));
-	if (!line)
-		return (NULL);
-	i++;
-	j = 0;
-	while (buffer[i])
-		line[j++] = buffer[i++];
-	free(buffer);
-	line[j] = '\0';
-	return (line);
+static ssize_t	read_buffer(char *buf, int fd)
+{
+	ssize_t	len;
+
+	if (*buf)
+		return (1);
+	len = read(fd, buf, BUFFER_SIZE);
+	if (len < 0)
+		return (0);
+	if (len < BUFFER_SIZE)
+		buf[len] = '\0';
+	if (!len)
+		return (0);
+	return (1);
 }
 
-// stock la line et return
-char	*ft_line(char *buffer)
+static size_t	find_new_line(char *buf, size_t *len)
 {
-	char	*line;
-	int		i;
+	size_t	is_new_line;
 
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	if (buffer[i] == '\n')
-		line = malloc(i + 2 * sizeof(char));
-	else
-		line = malloc(i + 1 * sizeof(char));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (buffer[i] && buffer[i] != '\n')
-	{
-		line[i] = buffer[i];
-		i++;
-	}
-	if (buffer[i] == '\n')
-	{
-		line[i] = '\n';
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
+	is_new_line = 0;
+	while (buf[*len] && buf[*len] != '\n')
+		(*len)++;
+	if (buf[*len] == '\n')
+		is_new_line = 1;
+	*len += is_new_line;
+	return (is_new_line);
 }
 
-char	*ft_initres(char *res)
+static void	memmove_buffer(char *buf, size_t len)
 {
-	res = malloc(sizeof(char));
-	if (!res)
-		return (NULL);
-	res[0] = '\0';
-	return (res);
+	size_t		i;
+
+	i = 0;
+	while (len + i < BUFFER_SIZE)
+	{
+		buf[i] = buf[len + i];
+		i++;
+	}
+	if (i < BUFFER_SIZE)
+		buf[i] = '\0';
 }
 
-// lire la line
-char	*read_file(int fd, char *res)
+static char	*ft_strnjoin(char *result, char *buf, size_t n)
 {
-	char	*buffer;
-	int		byte_read;
-	int		size;
+	size_t	i;
+	size_t	size_r;
+	char	*join;
 
-	if (!res)
-		res = ft_initres(res);
-	size = ft_strlen(res);
-	buffer = malloc(BUFFER_SIZE + 1 * sizeof(char));
-	if (!buffer)
-		return (free(res), NULL);
-	buffer[0] = '\0';
-	byte_read = 1;
-	while (!ft_strchr(buffer, '\n') && byte_read != 0)
-	{
-		byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (byte_read == -1)
-			return (free(buffer), free(res), NULL);
-		buffer[byte_read] = '\0';
-		if (byte_read == 0)
-			break ;
-		res = ft_freejoin(res, buffer, size, byte_read);
-		size += byte_read;
-	}
-	return (free(buffer), res);
+	size_r = 0;
+	if (result)
+		size_r = ft_strlen((const char *)result);
+	join = malloc((size_r + n + 1) * sizeof(char));
+	if (!join)
+		return (free(result), NULL);
+	i = -1;
+	while (++i < size_r)
+		join[i] = result[i];
+	i = -1;
+	while (++i < n)
+		join[i + size_r] = buf[i];
+	join[i + size_r] = '\0';
+	return (free(result), join);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	buf[BUFFER_SIZE] = {0};
 	char		*line;
+	size_t		new_line;
+	size_t		len;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0)
 		return (NULL);
-	buffer = read_file(fd, buffer);
-	if (!buffer || buffer[0] == '\0')
-		return (free(buffer), buffer = NULL, NULL);
-	line = ft_line(buffer);
-	if (!line || line[0] == '\0')
-		return (free(buffer), free(line), NULL);
-	buffer = ft_next(buffer);
-	if (buffer && buffer[0] == '\0')
+	line = NULL;
+	new_line = 0;
+	while (!new_line && read_buffer((char *)buf, fd) > 0)
 	{
-		free(buffer);
-		buffer = NULL;
+		len = 0;
+		new_line = find_new_line(buf, &len);
+		line = ft_strnjoin(line, buf, len);
+		if (!line)
+			return (NULL);
+		memmove_buffer(buf, len);
 	}
 	return (line);
 }
-
-/* #include <fcntl.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	int fd;
-	char *line;
-
-	fd = open("test.txt", O_RDONLY);
-	if (fd == -1)
-	{
-		perror("Erreur lors de l'ouverture du fichier");
-		return (1);
-	}
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("Ligne lue : %s\n", line);
-		free(line);
-	}
-	close(fd);
-	return (0);
-} */

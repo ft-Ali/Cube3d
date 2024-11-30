@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 11:07:21 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/29 13:09:23 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/30 20:52:10 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,28 @@ bool	append_map_line(char **tmp_map, char *line, t_game *game)
 	return (true);
 }
 
-void	handle_flag(char *line, bool *flag, t_game *game, char *error_message)
+void	handle_flag(char *line, bool *flag, t_game *game, char *tmp_map)
 {
 	if (line && *flag)
-		handle_error(game, error_message);
+		(free(line), free(tmp_map), handle_error(game, "Error: Duplicate texture or color"));
 	*flag = true;
 }
 
-void	check_double(char *line, t_game *game)
+void	check_double(char *line, t_game *game, char *tmp_map)
 {
+	(void)tmp_map;
 	if (ft_strncmp(line, "NO", 2) == 0)
-		handle_flag(line, &game->f_NO, game, "Error: Duplicate NO texture");
+		handle_flag(line, &game->f_NO, game, tmp_map);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		handle_flag(line, &game->f_SO, game, "Error: Duplicate SO texture");
+		handle_flag(line, &game->f_SO, game, tmp_map);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		handle_flag(line, &game->f_WE, game, "Error: Duplicate WE texture");
+		handle_flag(line, &game->f_WE, game, tmp_map);
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		handle_flag(line, &game->f_EA, game, "Error: Duplicate EA texture");
+		handle_flag(line, &game->f_EA, game, tmp_map);
 	else if (ft_strncmp(line, "F", 1) == 0)
-		handle_flag(line, &game->f_F, game, "Error: Duplicate F color");
+		handle_flag(line, &game->f_F, game, tmp_map);
 	else if (ft_strncmp(line, "C", 1) == 0)
-		handle_flag(line, &game->f_C, game, "Error: Duplicate C color");
+		handle_flag(line, &game->f_C, game, tmp_map);
 }
 
 void	map_replace(t_game *game)

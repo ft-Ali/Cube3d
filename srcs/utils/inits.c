@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:55:23 by jules             #+#    #+#             */
-/*   Updated: 2024/11/29 11:01:49 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/11/30 20:19:50 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	init_game(t_game *game, t_ray *ray, t_map *map, t_img *img)
 	game->mlx = NULL;
 	game->win = NULL;
 	game->tex = NULL;
+	game->fd = 0;
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
 		handle_error(game, ERR_MALLOC);

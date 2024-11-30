@@ -14,6 +14,7 @@
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
+
 # define CUB3D_H
 
 // libraries
@@ -103,19 +104,19 @@
 
 typedef struct s_map
 {
-	char **grid;      // Tableau 2D pour la carte
-	int width;        // Largeur de la carte
-	int height;       // Hauteur de la carte
-	int player_x;     // Position X du joueur
-	int player_y;     // Position Y du joueur
-	char *north_path; // Chemin vers la texture du mur nord
-	char *south_path; // Chemin vers la texture du mur sud
+	char	**grid;	  // Tableau 2D pour la carte
+	int		width;		  // Largeur de la carte
+	int		height;		  // Hauteur de la carte
+	int 	player_x;	  // Position X du joueur
+	int 	player_y;	  // Position Y du joueur
+	char 	*north_path; // Chemin vers la texture du mur nord
+	char 	*south_path; // Chemin vers la texture du mur sud
 	char *east_path;  // Chemin vers la texture du mur est
 	char *west_path;  // Chemin vers la texture du mur ouest
-	char *f_color;    // Couleur du sol (au format "R,G,B")
-	char *c_color;    // Couleur du plafond (au format "R,G,B")
-	int fcolor_i;     // Couleur du sol (au format int)
-	int ccolor_i;     // Couleur du plafond (au format int)
+	char *f_color;	  // Couleur du sol (au format "R,G,B")
+	char *c_color;	  // Couleur du plafond (au format "R,G,B")
+	int fcolor_i;	  // Couleur du sol (au format int)
+	int ccolor_i;	  // Couleur du plafond (au format int)
 	int f_tab[RGB_SIZE];
 	int c_tab[RGB_SIZE];
 } t_map;
@@ -190,60 +191,60 @@ typedef struct s_game
 
 /************************** PARSING ******************************/
 
-int	check_and_open_file(t_game *game, char *file);
-void	parse_map_config(t_game *game, int map_fd);
-void	parse_init(t_game *game, char *path);
-void	parse_color(t_game *game, char *rgb, char who);
-void	parse_rgb(char *line, char **color, const char *id, t_game *game);
-void	parse_tex(char *line, char **tex_path, const char *id, t_game *game);
-int	check_map_height(char **map);
-bool	append_map_line(char **tmp_map, char *line, t_game *game);
-void	check_char(t_game *game);
-bool	check_order_valid(t_order *order);
-void	check_double(char *line, t_game *game);
-void	check_textures(t_game *game);
-void	check_enclosure_border(t_game *game);
-void	check_enclosure_side(t_game *game);
-void	check_map_valid(t_game *game);
-int	map_width(t_game *game);
-void	map_replace(t_game *game);
-void	init_img(t_img *img);
-void	init_game(t_game *game, t_ray *ray, t_map *map, t_img *img);
-void	init_mlx(t_game *game);
-void	init_map(t_map *map);
+int check_and_open_file(t_game *game, char *file);
+void parse_map_config(t_game *game, int map_fd);
+void parse_init(t_game *game, char *path);
+void parse_color(t_game *game, char *rgb, char who);
+void parse_rgb(char *line, char **color, const char *id, t_game *game);
+void parse_tex(char *line, char **tex_path, const char *id, t_game *game);
+int check_map_height(char **map);
+bool append_map_line(char **tmp_map, char *line, t_game *game);
+void check_char(t_game *game);
+bool check_order_valid(t_order *order);
+void check_double(char *line, t_game *game, char *tmp_map);
+void check_textures(t_game *game);
+void check_enclosure_border(t_game *game);
+void check_enclosure_side(t_game *game);
+void check_map_valid(t_game *game);
+int map_width(t_game *game);
+void map_replace(t_game *game);
+void init_img(t_img *img);
+void init_game(t_game *game, t_ray *ray, t_map *map, t_img *img);
+void init_mlx(t_game *game);
+void init_map(t_map *map);
 
 /************************** ERROR HANDLING ******************************/
 
-void	handle_error(t_game *game, char *msg);
-void	free_game(t_game *game);
+void handle_error(t_game *game, char *msg);
+void free_game(t_game *game);
 
 /*****************************GRAPHICS*********************************/
 
-void	init_mlx(t_game *game);
-void	init_textures(t_game *game);
-void	init_vectors(t_game *game);
-void	raycasting(t_game *game);
-int	handle_key_press(int keycode, t_game *game);
-int	handle_key_release(int keycode, t_game *game);
-int	movedisplay(t_game *game);
-int	on_destroy(t_game *game);
-int	moving(t_game *game, t_ray *ray);
-int	l_rotate(t_ray *ray);
-int	r_rotate(t_ray *ray);
-int	x_move(t_game *game, t_ray *ray, int leftorright);
-int	y_move(t_game *game, t_ray *ray, int upordown);
-int	can_move(t_game *game, t_ray *ray, double x, double y);
-void	ray_pos(t_ray *ray, int x);
-void	side_dist(t_ray *ray);
-void	dda_algo(t_game *game, t_ray *ray);
-void	draw_pixels(t_game *game, t_ray *ray, int x, int **buffer);
-void	start_draw(t_ray *ray);
+void init_mlx(t_game *game);
+void init_textures(t_game *game);
+void init_vectors(t_game *game);
+void raycasting(t_game *game);
+int handle_key_press(int keycode, t_game *game);
+int handle_key_release(int keycode, t_game *game);
+int movedisplay(t_game *game);
+int on_destroy(t_game *game);
+int moving(t_game *game, t_ray *ray);
+int l_rotate(t_ray *ray);
+int r_rotate(t_ray *ray);
+int x_move(t_game *game, t_ray *ray, int leftorright);
+int y_move(t_game *game, t_ray *ray, int upordown);
+int can_move(t_game *game, t_ray *ray, double x, double y);
+void ray_pos(t_ray *ray, int x);
+void side_dist(t_ray *ray);
+void dda_algo(t_game *game, t_ray *ray);
+void draw_pixels(t_game *game, t_ray *ray, int x, int **buffer);
+void start_draw(t_ray *ray);
 
 /************************** UTILS ******************************/
-void	print_data(t_game *game);
-void	init_bools(t_game *game);
-bool	is_space(char c);
-int	isstartorground(char c);
-int	ft_sstrlen(char *str);
+void print_data(t_game *game);
+void init_bools(t_game *game);
+bool is_space(char c);
+int isstartorground(char c);
+int ft_sstrlen(char *str);
 
 #endif
