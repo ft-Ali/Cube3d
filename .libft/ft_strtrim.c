@@ -6,7 +6,7 @@
 /*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:22:45 by alsiavos          #+#    #+#             */
-/*   Updated: 2023/11/15 09:54:44 by alsiavos         ###   ########.fr       */
+/*   Updated: 2024/12/02 09:22:56 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (s1 == NULL || set == NULL)
 		return (NULL);
 	end = ft_strlen(s1);
+	while (isspace(s1[start]))
+		start++;
 	while (s1[start] && check_set(set, s1[start]))
 		start++;
 	while (check_set(set, s1[end - 1]) && end > start)
