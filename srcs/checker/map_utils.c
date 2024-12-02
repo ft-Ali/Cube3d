@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: alsiavos <alsiavos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 11:07:21 by alsiavos          #+#    #+#             */
-/*   Updated: 2024/11/30 20:56:42 by jules            ###   ########.fr       */
+/*   Updated: 2024/12/02 08:32:32 by alsiavos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ void	check_double(char *line, t_game *game, char *tmp_map)
 {
 	(void)tmp_map;
 	if (ft_strncmp(line, "NO", 2) == 0)
-		handle_flag(line, &game->f_NO, game, tmp_map);
+		handle_flag(line, &game->f_no, game, tmp_map);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		handle_flag(line, &game->f_SO, game, tmp_map);
+		handle_flag(line, &game->f_so, game, tmp_map);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		handle_flag(line, &game->f_WE, game, tmp_map);
+		handle_flag(line, &game->f_we, game, tmp_map);
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		handle_flag(line, &game->f_EA, game, tmp_map);
+		handle_flag(line, &game->f_ea, game, tmp_map);
 	else if (ft_strncmp(line, "F", 1) == 0)
-		handle_flag(line, &game->f_F, game, tmp_map);
+		handle_flag(line, &game->f_f, game, tmp_map);
 	else if (ft_strncmp(line, "C", 1) == 0)
-		handle_flag(line, &game->f_C, game, tmp_map);
+		handle_flag(line, &game->f_c, game, tmp_map);
 }
 
 void	map_replace(t_game *game)
